@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animes</title>
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+  <!-- JAVASCRIPT -->
+  <script src="../js/script.js" defer></script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+  <!-- AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+  <header>
+    <h1 id="logo">Animes</h1>
+    <img src="../assets/icon/menu.svg" role="button" class="menu_toggle"></img>
+    <nav>
+      <ul>
+        <li><a href="#">Página Inicial</a></li>
+        <li><a href="#">Minha lista</a></li>
+        <li><a href="#">Favoritos</a></li>
+        <li><a href="#">Curtidos</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <div class="container">
+        <h2>Populares</h2>
+        <div id="popularity" class="anime-list main-carousel">
+          <div class="anime carousel-cell">
+            <div class="anime-img">
+              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
+              <span class="episodes">65 Episódios</span>
+            </div>
+            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
+          </div>
+          <div class="anime carousel-cell">
+            <div class="anime-img">
+              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
+              <span class="episodes">65 Episódios</span>
+            </div>
+            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
+          </div>
+          <div class="anime carousel-cell">
+            <div class="anime-img">
+              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
+              <span class="episodes">65 Episódios</span>
+            </div>
+            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
+          </div>
+          <div class="anime carousel-cell">
+            <div class="anime-img">
+              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
+              <span class="episodes">65 Episódios</span>
+            </div>
+            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
+          </div>
+          <div class="anime carousel-cell">
+            <div class="anime-img">
+              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
+              <span class="episodes">65 Episódios</span>
+            </div>
+            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <p id="w"></p>
+</body>
+</html>

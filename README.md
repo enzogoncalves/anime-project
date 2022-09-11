@@ -1,0 +1,1 @@
+# Anime Project using creating an API and using AXIOS to consulte animes infos
