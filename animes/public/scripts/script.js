@@ -14,9 +14,9 @@ window.addEventListener("resize", () => {
 const menu_toggle = document.querySelector(".menu_toggle");
 const nav = document.querySelector("nav");
 menu_toggle.addEventListener("click", ({ target }) => {
-  target.getAttribute("src") == "../assets/icon/menu.svg"
-    ? (menu_toggle.src = "../assets/icon/clear.svg")
-    : (menu_toggle.src = "../assets/icon/menu.svg");
+  target.getAttribute("src") == "/icon/menu.svg"
+    ? (menu_toggle.src = "/icon/clear.svg")
+    : (menu_toggle.src = "/icon/menu.svg");
 
   nav.classList.contains("active")
     ? nav.classList.remove("active")

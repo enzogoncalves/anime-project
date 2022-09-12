@@ -5,7 +5,7 @@ function createLoadingScreen() {
   loadingDiv.classList.add("loading");
 
   const img = document.createElement("img");
-  img.setAttribute("src", "../assets/icon/spinner.svg");
+  img.setAttribute("src", "/icon/spinner.svg");
 
   const p = document.createElement("p");
   p.textContent = "carregando...";
@@ -21,7 +21,7 @@ function createErrorScreen() {
   errorScreen.classList.add("error-screen");
 
   const img = document.createElement("img");
-  img.setAttribute("src", "../assets/img/undraw_server_down_s-4-lk.svg");
+  img.setAttribute("src", "/imgs/undraw_server_down_s-4-lk.svg");
 
   const p = document.createElement("p");
   p.textContent = "Não conseguimos conectar ao servidor :(";
