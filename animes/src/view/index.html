@@ -13,11 +13,12 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+  <link rel="stylesheet" href="../css/flickity.min.css">
 
   <!-- JAVASCRIPT -->
-  <script src="../js/script.js" defer></script>
-  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  <script src="../js/screens.js"></script>
+  <script type="module" src="../js/script.js" defer></script>
+  <script src="../js/flickity.pkgd.min.js"></script>
 
   <!-- AXIOS -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -40,42 +41,7 @@
     <section>
       <div class="container">
         <h2>Populares</h2>
-        <div id="popularity" class="anime-list main-carousel">
-          <div class="anime carousel-cell">
-            <div class="anime-img">
-              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
-              <span class="episodes">65 Episódios</span>
-            </div>
-            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
-          </div>
-          <div class="anime carousel-cell">
-            <div class="anime-img">
-              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
-              <span class="episodes">65 Episódios</span>
-            </div>
-            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
-          </div>
-          <div class="anime carousel-cell">
-            <div class="anime-img">
-              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
-              <span class="episodes">65 Episódios</span>
-            </div>
-            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
-          </div>
-          <div class="anime carousel-cell">
-            <div class="anime-img">
-              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
-              <span class="episodes">65 Episódios</span>
-            </div>
-            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
-          </div>
-          <div class="anime carousel-cell">
-            <div class="anime-img">
-              <img src="https://cdn.myanimelist.net/images/anime/1223/96541.jpg" alt="anime-img">
-              <span class="episodes">65 Episódios</span>
-            </div>
-            <p class="anime-title">Fullmetal Alchemist: Brotherhood</p>
-          </div>
+        <div class="anime-list main-carousel" id="popularity">
         </div>
       </div>
     </section>

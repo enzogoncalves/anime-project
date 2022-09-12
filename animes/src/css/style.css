@@ -96,15 +96,12 @@ nav.active ul li a:hover {
   margin-right: .5rem;
 }
 
-.flickity-page-dots {
-  display: none;
-}
-
 .anime {
   cursor: pointer;
   max-width: fit-content;
   flex: 1 0 0;
-  max-width: clamp(110px, 25vw, 150px);
+  width: clamp(110px, 25vw, 150px);
+  height: 300px;
 }
 
 .anime .anime-img {
@@ -118,8 +115,9 @@ nav.active ul li a:hover {
 .anime .anime-img img {
   transition: .2s;
   display: block;
-  width: 100%;
-  height: auto;
+  /* width: 100%; */
+  height: clamp(170px, 30vw, 220px);
+  object-fit: cover;
 }
 
 .anime .anime-img img:hover {
