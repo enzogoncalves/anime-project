@@ -13,7 +13,7 @@
 
 @font-face {
   font-family: "Fontstars";
-  src: url(../assets/fonts/Fonstars-4Bo0p.otf);
+  src: url(/fonts/Fonstars-4Bo0p.otf);
 }
 
 *, *::before, *::after {

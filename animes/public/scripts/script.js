@@ -35,24 +35,83 @@ function carousel() {
   });
 }
 
-function getTopAnimes() {
-  axios
-    .get("https://api.jikan.moe/v4/top/anime")
-    .then((res) => res.data.data)
-    .then((data) => {
-      data.forEach((anime) => {
-        createAnimeScreen(
-          anime.mal_id,
-          anime.images.webp.image_url,
-          anime.title,
-          anime.episodes
-        );
-      });
-    })
-    .then(() => {
-      carousel();
-    })
-    .catch((err) => console.log(err));
+function getAnimes() {
+  // Here we define our query as a multi-line string
+// Storing it in a separate .graphql/.gql file is also possible
+let query = `
+query ($page: Int, $perPage: Int) {
+  Page(page: $page, perPage: $perPage) {
+    pageInfo {
+      total
+      perPage
+    }
+    media(type: ANIME, sort: TRENDING_DESC) {
+      id
+      title {
+        english
+        romaji
+      }
+      coverImage {
+        extraLarge
+        large
+        color
+      }
+      episodes
+    }
+  }
+}
+`;
+
+// Define our query variables and values that will be used in the query request
+let variables = {
+page: 0,
+perPage: 30
+};
+
+// Define the config we'll need for our Api request
+let url = "https://graphql.anilist.co",
+options = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+  body: JSON.stringify({
+    query: query,
+    variables: variables,
+  }),
+};
+
+// Make the HTTP Api request
+fetch(url, options)
+  .then(handleResponse)
+  .then(handleData)
+  .then(carousel)
+  .catch(handleError);
+
+function handleResponse(response) {
+  return response.json().then(function (json) {
+  return response.ok ? json : Promise.reject(json);
+});
 }
 
-getTopAnimes();
+function handleData(data) {
+  console.log(data.data.Page)
+  data.data.Page.media.forEach((anime) => {
+    createAnimeScreen(
+      anime.id,
+      anime.coverImage.large,
+      anime.title.romaji,
+      anime.episodes,
+      1
+    );
+  });
+}
+
+function handleError(error) {
+alert("Error, check console");
+console.error(error);
+}
+}
+
+getAnimes();

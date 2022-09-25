@@ -1,4 +1,5 @@
-const popularityAnimes = document.querySelector("#popularity");
+const trendingAnimes = document.querySelector("#trend");
+const popularityAnimes = document.querySelector("#popular");
 
 function createLoadingScreen() {
   let loadingDiv = document.createElement("div");
@@ -54,9 +55,9 @@ function createAnimeScreen(
   animeId,
   animeImg = "",
   animeTile = "",
-  animeEp = "0"
+  animeEp = "0",
+  parentDiv
 ) {
-  console.log(animeId);
   const animeScreen = document.createElement("div");
   animeScreen.setAttribute("id", animeId);
   animeScreen.classList.add("anime", "carousel-cell");
@@ -68,21 +69,35 @@ function createAnimeScreen(
   animeImgElement.setAttribute("src", animeImg);
   animeImgElement.setAttribute("alt", "anime image");
 
-  const animeEpElement = document.createElement("span");
-  animeEpElement.classList.add("episodes");
-  animeEpElement.textContent = animeEp + " episodes";
+  if(animeEp) {
+    var animeEpElement = document.createElement("span");
+    animeEpElement.classList.add("episodes");
+    animeEp == 1 
+    ? animeEpElement.textContent = animeEp + " episode" 
+    : animeEpElement.textContent = animeEp + " episodes";
+  }
 
   const animeTitleElement = document.createElement("p");
   animeTitleElement.classList.add("anime-title");
   animeTitleElement.textContent = animeTile;
 
   div.appendChild(animeImgElement);
-  div.appendChild(animeEpElement);
+
+  if(animeEp) {
+    div.appendChild(animeEpElement);
+  }
 
   animeScreen.appendChild(div);
   animeScreen.appendChild(animeTitleElement);
 
-  popularityAnimes.appendChild(animeScreen);
+  switch (parentDiv) {
+    case 1:
+      trendingAnimes.appendChild(animeScreen);
+      break
+    case 2:
+      popularityAnimes.appendChild(animeScreen);
+      break
+  }
 }
 
 export {
