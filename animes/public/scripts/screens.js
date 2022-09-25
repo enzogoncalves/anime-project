@@ -90,13 +90,11 @@ function createAnimeScreen(
   animeScreen.appendChild(div);
   animeScreen.appendChild(animeTitleElement);
 
-  switch (parentDiv) {
-    case 1:
-      trendingAnimes.appendChild(animeScreen);
-      break
-    case 2:
-      popularityAnimes.appendChild(animeScreen);
-      break
+  if(parentDiv == 1) {
+    trendingAnimes.appendChild(animeScreen);
+
+  } else if (parentDiv == 2) {
+    popularityAnimes.appendChild(animeScreen);
   }
 }
 

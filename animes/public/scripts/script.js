@@ -5,6 +5,8 @@ import {
   createNonAnimeFoundScreen,
 } from "./screens.js";
 
+import { getAnimes, handleResponse, handleError } from "./api_requests.js";
+
 const w = document.querySelector("#w");
 
 window.addEventListener("resize", () => {
@@ -26,92 +28,42 @@ menu_toggle.addEventListener("click", ({ target }) => {
 // --- SCREENS ---
 
 function carousel() {
-  const elem = document.querySelector(".main-carousel");
-  const flkty = new Flickity(elem, {
-    // options
-    cellAlign: "left",
-    contain: true,
-    pageDots: false,
+  const elem = document.querySelectorAll(".main-carousel");
+  elem.forEach((el) => {
+    const flkty = new Flickity(el, {
+      // options
+      cellAlign: "left",
+      contain: true,
+      pageDots: false,
+    });
   });
 }
 
-function getAnimes() {
-  // Here we define our query as a multi-line string
-// Storing it in a separate .graphql/.gql file is also possible
-let query = `
-query ($page: Int, $perPage: Int) {
-  Page(page: $page, perPage: $perPage) {
-    pageInfo {
-      total
-      perPage
-    }
-    media(type: ANIME, sort: TRENDING_DESC) {
-      id
-      title {
-        english
-        romaji
-      }
-      coverImage {
-        extraLarge
-        large
-        color
-      }
-      episodes
-    }
-  }
-}
-`;
-
-// Define our query variables and values that will be used in the query request
-let variables = {
-page: 0,
-perPage: 30
-};
-
-// Define the config we'll need for our Api request
-let url = "https://graphql.anilist.co",
-options = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-  body: JSON.stringify({
-    query: query,
-    variables: variables,
-  }),
-};
-
-// Make the HTTP Api request
-fetch(url, options)
-  .then(handleResponse)
-  .then(handleData)
-  .then(carousel)
-  .catch(handleError);
-
-function handleResponse(response) {
-  return response.json().then(function (json) {
-  return response.ok ? json : Promise.reject(json);
-});
-}
-
-function handleData(data) {
-  console.log(data.data.Page)
+function handleData(data, parentEl) {
   data.data.Page.media.forEach((anime) => {
     createAnimeScreen(
       anime.id,
       anime.coverImage.large,
       anime.title.romaji,
       anime.episodes,
-      1
+      parentEl
     );
   });
 }
 
-function handleError(error) {
-alert("Error, check console");
-console.error(error);
-}
+function showAnimes(sort, parentEl) {
+  const req = getAnimes(sort);
+  const { url, options } = req;
+
+  console.log(url, options);
+
+  fetch(url, options)
+    .then(handleResponse)
+    .then(data => {
+      handleData(data, parentEl)
+    })
+    .catch(handleError)
+    .finally(carousel);
 }
 
-getAnimes();
+showAnimes("TRENDING_DESC", 1);
