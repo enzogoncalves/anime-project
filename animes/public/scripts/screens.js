@@ -51,13 +51,13 @@ function createNonAnimeFoundScreen() {
   return NonAnimeFoundScreen;
 }
 
-function createAnimeScreen(
+const createAnimeList = (
   animeId,
   animeImg = "",
   animeTile = "",
   animeEp = "0",
   parentDiv
-) {
+) => {
   const animeScreen = document.createElement("div");
   animeScreen.setAttribute("id", animeId);
   animeScreen.classList.add("anime", "carousel-cell");
@@ -69,12 +69,12 @@ function createAnimeScreen(
   animeImgElement.setAttribute("src", animeImg);
   animeImgElement.setAttribute("alt", "anime image");
 
-  if(animeEp) {
+  if (animeEp) {
     var animeEpElement = document.createElement("span");
     animeEpElement.classList.add("episodes");
-    animeEp == 1 
-    ? animeEpElement.textContent = animeEp + " episode" 
-    : animeEpElement.textContent = animeEp + " episodes";
+    animeEp == 1
+      ? (animeEpElement.textContent = animeEp + " episode")
+      : (animeEpElement.textContent = animeEp + " episodes");
   }
 
   const animeTitleElement = document.createElement("p");
@@ -83,23 +83,27 @@ function createAnimeScreen(
 
   div.appendChild(animeImgElement);
 
-  if(animeEp) {
+  if (animeEp) {
     div.appendChild(animeEpElement);
   }
 
   animeScreen.appendChild(div);
   animeScreen.appendChild(animeTitleElement);
 
-  if(parentDiv == 1) {
+  if (parentDiv == 1) {
     trendingAnimes.appendChild(animeScreen);
-
   } else if (parentDiv == 2) {
     popularityAnimes.appendChild(animeScreen);
   }
 }
 
+const createAnime = (animeData) => {
+  const section = document.querySelector("section")
+}
+
 export {
-  createAnimeScreen,
+  createAnime,
+  createAnimeList,
   createErrorScreen,
   createLoadingScreen,
   createNonAnimeFoundScreen,
