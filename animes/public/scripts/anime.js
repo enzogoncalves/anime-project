@@ -24,4 +24,4 @@ function showAnime(id) {
     .finally(carousel);
 }
 
-showAnime(1);
+showAnime(5114);
