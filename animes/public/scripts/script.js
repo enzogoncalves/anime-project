@@ -7,9 +7,9 @@ window.addEventListener("resize", () => {
 const menu_toggle = document.querySelector(".menu_toggle");
 const nav = document.querySelector("nav");
 menu_toggle.addEventListener("click", ({ target }) => {
-  target.getAttribute("src") == "/icon/menu.svg"
-    ? (menu_toggle.src = "/icon/clear.svg")
-    : (menu_toggle.src = "/icon/menu.svg");
+  target.getAttribute("src") == "/icons/menu.svg"
+    ? (menu_toggle.src = "/icons/close.svg")
+    : (menu_toggle.src = "/icons/menu.svg");
 
   nav.classList.contains("active")
     ? nav.classList.remove("active")
@@ -28,4 +28,4 @@ function carousel() {
   });
 }
 
-export {carousel};
+export { carousel };

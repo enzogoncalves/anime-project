@@ -24,4 +24,15 @@ function showAnime(id) {
     .finally(carousel);
 }
 
-showAnime(1);
+showAnime(5114);
+
+const btns_functions = document.querySelectorAll('.btn-functions');
+
+btns_functions.forEach((btn) => {
+  const animeId = btn.parentElement.parentElement.parentElement.parentElement.getAttribute('id')
+  btn.addEventListener('click', () => {
+    axios.put(`localhost:5500/animes/likes/${animeId}`)
+    .then(response => console.log(response))
+    .catch(error => console.error(error))
+  })
+})

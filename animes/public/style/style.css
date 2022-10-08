@@ -179,6 +179,10 @@ nav.active ul li a:hover {
   max-width: 250px;
 }
 
+img path {
+  fill: black;
+}
+
 
 /*
 @media (min-width: 350px) {
