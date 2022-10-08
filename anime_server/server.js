@@ -11,7 +11,7 @@ let animes = {
 app.use(express.json())
 
 app.listen(5500, () => {
-  console.log('Rodando de boa na porta 3000')
+  console.log('Rodando de boa na porta 5500')
 })
 
 app.get('/animes/', (req, res) => {
