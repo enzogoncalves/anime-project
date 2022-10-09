@@ -10,7 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+  
+  <!-- AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
   <!-- CSS -->
   <link rel="stylesheet" href="/style/style.css">
   <link rel="stylesheet" href="/style/anime.css">
@@ -19,11 +22,9 @@
   <!-- JAVASCRIPT -->
   <script type="module" src="/scripts/screens.js"></script>
   <script type="module" src="/scripts/script.js"></script>
-  <script type="module" src="/scripts/anime.js"></script>
+  <script type="module" src="/scripts/anime.js" defer></script>
   <script src="/scripts/flickity.pkgd.min.js"></script>
 
-  <!-- AXIOS -->
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 <body>
@@ -59,9 +60,9 @@
             <p>score: 9.13</p>
           </div>
           <div class="options">
-            <button class="btn-functions">Like<img src="/icons/heart-o.svg"></img></button>
-            <button class="btn-functions">Favorite<img src="/icons/star-o.svg"></img></button>
-            <button class="btn-functions">My List<img src="/icons/plus.svg"></img></button>
+            <button class="btn-functions" data-type="likes" data-function="add">Like<img src="/icons/heart-o.svg"></img></button>
+            <button class="btn-functions" data-type="favorites" data-function="add">Favorite<img src="/icons/star-o.svg"></img></button>
+            <button class="btn-functions" data-type="mylist" data-function="add">My List<img src="/icons/plus.svg"></img></button>
           </div>
         </div>
       </div>

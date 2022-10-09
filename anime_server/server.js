@@ -1,6 +1,12 @@
 const express = require('express')
-const axios = require('axios')
+const cors = require('cors')
+
 const app = express();
+
+app.use(cors())
+
+app.use(express.json())
+
 
 let animes = {
   likes: [],
@@ -34,41 +40,50 @@ app.get('/animes/myList', (req, res) => {
 
 // ----------- PUT -----------
 
-app.put('/animes/add/likes/:anime_id', (req, res) => {
-  animes.likes.push(Number(req.params.anime_id))
-  res.send("adicionado com sucesso na lista de curtidos")
+app.route('/animes/add/likes/').post((req, res) => {
+  animes.likes.push(req.body.id)
+  res.json("adicionado com sucesso na lista de curtidos")
 })
 
-app.put('/animes/add/favorites/:anime_id', (req, res) => {
-  animes.favorites.push(Number(req.params.anime_id))
-  res.send("adicionado com sucesso na lista de favoritos")
+app.post('/animes/add/favorites/', (req, res) => {
+  animes.favorites.push(req.body.id)
+  res.json("adicionado com sucesso na lista de favoritos")
 })
 
-app.put('/animes/add/myList/:anime_id', (req, res) => {
-  animes.myList.push(Number(req.params.anime_id))
-  res.send("adicionado com sucesso na sua lista")
+app.post('/animes/add/myList/', (req, res) => {
+  animes.myList.push(req.body.id)
+  res.json("adicionado com sucesso na sua lista")
 })
 
 // ----------- DELETE -----------
+app.delete('/animes/delete/', (req, res) => {
+  animes = {
+    likes: [],
+    favorites: [],
+    myList: []
+  }
+  res.json("tudo deletado")
+})
 
-app.delete('/animes/delete/likes/:anime_id', (req, res) => {
+app.delete('/animes/delete/likes/:id', (req, res) => {
+  console.log(req.params)
   animes.likes = animes.likes.filter((item) => {
-    return item != Number(req.params.anime_id)
+    return item != req.params.id
   })
-  res.send("deletado com sucesso dos seus curtidos")
+  res.json("deletado com sucesso dos seus curtidos")
 })
 
-app.delete('/animes/delete/favorites/:anime_id', (req, res) => {
+app.delete('/animes/delete/favorites/:id', (req, res) => {
   animes.favorites = animes.favorites.filter((item) => {
-    return item != Number(req.params.anime_id)
+    return item != req.params.id
   })
-  res.send("deletado com sucesso dos seus favoritos")
+  res.json("deletado com sucesso dos seus favoritos")
 })
 
-app.delete('/animes/delete/myList/:anime_id', (req, res) => {
+app.delete('/animes/delete/myList/:id', (req, res) => {
   animes.myList = animes.myList.filter((item) => {
-    return item != Number(req.params.anime_id)
+    return item != req.params.id
   })
-  res.send("deletado com sucesso da sua lista")
+  res.json("deletado com sucesso da sua lista")
 })
 

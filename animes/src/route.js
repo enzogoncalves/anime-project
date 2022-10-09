@@ -10,5 +10,4 @@ route.get("/anime/:id", (req, res) => {
   res.render("anime");
 });
 
-
 module.exports = route;
