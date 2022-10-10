@@ -6,6 +6,16 @@ import { getAnime, handleResponse, handleError } from "./api_requests.js";
 
 import { carousel } from "./script.js";
 
+function changeIcon(btn) {
+  const btnImg = String(btn.children[0].getAttribute('src'))
+
+  if(btnImg.includes('-o')) {
+    btn.children[0].setAttribute('src', btnImg.replace('-o', ''))
+  } else {
+    btn.children[0].setAttribute('src', `${btnImg.replace('.svg', '')}-o.svg`)
+  }
+}
+
 function handleData(data) {
   createAnime(data.data.Media)
 }
@@ -40,15 +50,14 @@ btns_functions.forEach((btn) => {
 
     if(btnFunction == "add") {
       axios.post(`http://localhost:5500/animes/${btnFunction}/${btnType}/`, id)
-      .then(response => console.log(response))
-      .catch(error => console.error(error))
+      .then(response => animeResponse(response, btn))
+      .catch(err => animeErr(err))
     } else if (btnFunction == "delete") {
       axios.delete(`http://localhost:5500/animes/delete/${btnType}/${id.id}`)
-      .then(response => console.log(response))
-      .catch(error => console.error(error))
+      .then(response => animeResponse(response, btn))
+      .catch(err => animeErr(err))
     }
     
-
     if(btnFunction == "add") {
       btn.setAttribute("data-function", "delete")
     } else {
@@ -56,3 +65,12 @@ btns_functions.forEach((btn) => {
     }
   })
 })
+
+function animeResponse(response, btn) {
+  console.log(response)
+  changeIcon(btn)
+}
+
+function animeErr(err) {
+  alert('Não foi possível conectar ao servidor')
+}
