@@ -17,6 +17,7 @@ function changeIcon(btn) {
 }
 
 function handleData(data) {
+  console.log(data.data.Media)
   createAnime(data.data.Media)
 }
 
@@ -33,19 +34,21 @@ function showAnime(id) {
     .finally(carousel);
 }
 
-showAnime(5114);
+let test = window.location.href.slice(window.location.href.indexOf('anime'))
+test = Number(test.slice(test.indexOf('/') + 1))
+showAnime(1232);
 
 const btns_functions = document.querySelectorAll('.btn-functions');
 
 btns_functions.forEach((btn) => {
-  const animeId = btn.parentElement.parentElement.parentElement.parentElement.getAttribute('id')
   const btnType = btn.getAttribute("data-type")
 
-  const id = {
-    id: Number(animeId)
-  }
-
   btn.addEventListener('click', () => {
+    const animeId = btn.parentElement.parentElement.parentElement.parentElement.getAttribute('id')
+
+    const id = {
+      id: Number(animeId)
+    }
     const btnFunction = btn.getAttribute("data-function")
 
     if(btnFunction == "add") {

@@ -52,6 +52,7 @@ function getAnime(id) {
         title {
           english
           romaji
+          native
         }
         coverImage {
           large

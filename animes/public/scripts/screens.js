@@ -40,7 +40,7 @@ function createNonAnimeFoundScreen() {
   const a = document.createElement("a");
   a.setAttribute("href", "#");
   a.textContent = "Clique aqui para adicionar!";
-  a.style.color = "#FF6D00"
+  a.style.color = "#FF6D00";
 
   const p = document.createElement("p");
   p.textContent = "Nenhum anime encontrado. ";
@@ -64,7 +64,7 @@ const createAnimeList = (
   animeScreen.classList.add("anime", "carousel-cell");
 
   const div = document.createElement("div");
-  div.classList.add("anime-img");
+  div.classList.add("anime-cover");
 
   const animeImgElement = document.createElement("img");
   animeImgElement.setAttribute("src", animeImg);
@@ -99,8 +99,67 @@ const createAnimeList = (
 };
 
 const createAnime = (animeData) => {
-  const animeSection = document.querySelector(".anime");
+  const animeContainer = document.querySelector(".animeContainer");
+  animeContainer.setAttribute("id", animeData.id);
+
+  const animeBannerDiv = document.createElement("div");
+  animeBannerDiv.classList.add("anime-banner");
+
+  const animeBanner = document.createElement("img");
+  animeBanner.setAttribute("alt", "anime banner");
+  animeBanner.setAttribute("src", animeData.bannerImage);
+
+  animeBannerDiv.appendChild(animeBanner);
+
+  const animeInfoDiv = document.createElement("div");
+  animeInfoDiv.classList.add("anime-info");
+
+  const animeCover = document.createElement("img");
+  animeCover.classList.add("anime-cover");
+  animeCover.setAttribute('alt', 'anime cover')
+  animeCover.setAttribute('src', animeData.coverImage.large)
+
+  animeInfoDiv.appendChild(animeCover)
+
+  const box = document.createElement('box')
+
+  const animeName = document.createElement('h2');
+  animeName.classList.add('anime-name')
+  animeName.textContent = animeData.title.romaji
+
+  box.appendChild(animeName)
+
+  const japaneseName = document.createElement('p')
+  japaneseName.textContent = `Japanese name: ${animeData.title.native}`
+
+  box.appendChild(japaneseName)
+
+  const synopse = document.createElement('p')
+  synopse.textContent = `Synopse: ${animeData.description.slice(0, animeData.description.indexOf('<br>'))}`
   
+  box.appendChild(synopse)
+
+  const episodes = document.createElement('p')
+  episodes.textContent = `${animeData.episodes} episodes | ${animeData.duration} per ep`
+
+  box.appendChild(episodes)
+
+  const genres = document.createElement('p')
+  genres.textContent = 'Genres: '
+
+  animeData.genres.forEach((genre) => {
+    const span = document.createElement('span')
+    span.classList.add('gen')
+    span.textContent = genre;
+    genres.appendChild(span)
+  })
+
+  box.appendChild(genres)
+
+  animeInfoDiv.appendChild(box)
+
+  animeContainer.appendChild(animeBannerDiv)
+  animeContainer.appendChild(animeInfoDiv)
 };
 
 export {

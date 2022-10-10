@@ -7,7 +7,6 @@ import { getAnimes, handleResponse, handleError } from "./api_requests.js";
 import { carousel } from "./script.js";
 
 function handleData(data, parentEl) {
-  console.log(data.data.Page.media);
   data.data.Page.media.forEach((anime) => {
     createAnimeList(
       anime.id,

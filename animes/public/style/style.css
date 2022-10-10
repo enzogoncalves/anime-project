@@ -104,7 +104,7 @@ nav.active ul li a:hover {
   height: 300px;
 }
 
-.anime .anime-img {
+.anime .anime-cover {
   display: flex;
   justify-content: center;
   position: relative;
@@ -112,7 +112,7 @@ nav.active ul li a:hover {
   border-radius: 6px;
 }
 
-.anime .anime-img img {
+.anime .anime-cover img {
   transition: .2s;
   display: block;
   /* width: 100%; */
@@ -120,7 +120,7 @@ nav.active ul li a:hover {
   object-fit: cover;
 }
 
-.anime .anime-img img:hover {
+.anime .anime-cover img:hover {
   transform: scale(1.1);
 }
 
