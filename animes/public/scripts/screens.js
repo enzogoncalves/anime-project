@@ -135,12 +135,12 @@ const createAnime = (animeData) => {
   box.appendChild(japaneseName)
 
   const synopse = document.createElement('p')
-  synopse.textContent = `Synopse: ${animeData.description.slice(0, animeData.description.indexOf('<br>'))}`
+  synopse.innerHTML = `Synopse: ${animeData.description}`
   
   box.appendChild(synopse)
 
   const episodes = document.createElement('p')
-  episodes.textContent = `${animeData.episodes} episodes | ${animeData.duration} per ep`
+  episodes.textContent = `${animeData.episodes} episodes | ${animeData.duration} minutes per ep`
 
   box.appendChild(episodes)
 
@@ -155,6 +155,24 @@ const createAnime = (animeData) => {
   })
 
   box.appendChild(genres)
+
+  const type = document.createElement('p')
+  type.textContent = `Format: ${animeData.format}`
+
+  box.appendChild(type)
+
+  const rankings = document.createElement('div')
+  rankings.classList.add('rankings')
+
+  animeData.rankings.forEach((ranking) => {
+    const rankingSpan = document.createElement('span')
+    rankingSpan.textContent = `#${ranking.rank} ${ranking.context} ${ranking.year}`
+    rankings.appendChild(rankingSpan)
+  })
+
+  box.appendChild(rankings)
+
+
 
   animeInfoDiv.appendChild(box)
 
