@@ -102,43 +102,65 @@ const createAnime = (animeData) => {
   const animeContainer = document.querySelector(".animeContainer");
   animeContainer.setAttribute("id", animeData.id);
 
+  animeContainer.appendChild(createAnimeBanner(animeData.bannerImage))
+  animeContainer.appendChild(createAnimeIntro(animeData))
+  animeContainer.appendChild(createAnimeInfo(animeData))
+};
+
+function createAnimeBanner(bannerImage) {
   const animeBannerDiv = document.createElement("div");
   animeBannerDiv.classList.add("anime-banner");
 
   const animeBanner = document.createElement("img");
   animeBanner.setAttribute("alt", "anime banner");
-  animeBanner.setAttribute("src", animeData.bannerImage);
+  animeBanner.setAttribute("src", bannerImage);
 
   animeBannerDiv.appendChild(animeBanner);
 
-  const animeInfoDiv = document.createElement("div");
-  animeInfoDiv.classList.add("anime-info");
+  return animeBannerDiv
+}
+
+function createAnimeIntro(animeData) {
+  const animeIntroDiv = document.createElement("div");
+  animeIntroDiv.classList.add("anime-intro");
 
   const animeCover = document.createElement("img");
   animeCover.classList.add("anime-cover");
   animeCover.setAttribute('alt', 'anime cover')
   animeCover.setAttribute('src', animeData.coverImage.large)
 
-  animeInfoDiv.appendChild(animeCover)
-
+  animeIntroDiv.appendChild(animeCover)
+  
   const box = document.createElement('box')
-
+  box.classList.add('box')
+  
   const animeName = document.createElement('h2');
   animeName.classList.add('anime-name')
   animeName.textContent = animeData.title.romaji
-
+  
   box.appendChild(animeName)
-
+  
   const japaneseName = document.createElement('p')
-  japaneseName.textContent = `Japanese name: ${animeData.title.native}`
-
+  japaneseName.textContent = `Native name: ${animeData.title.native}`
+  
   box.appendChild(japaneseName)
-
+  
   const synopse = document.createElement('p')
   synopse.innerHTML = `Synopse: ${animeData.description}`
-  
-  box.appendChild(synopse)
 
+  const options = document.querySelector('.options');
+  options.remove()
+
+  box.appendChild(synopse)
+  animeIntroDiv.appendChild(box)
+  animeIntroDiv.appendChild(options)
+  
+  return animeIntroDiv;
+}
+
+function createAnimeInfo(animeData) {
+  const box = document.createElement('div')
+  
   const episodes = document.createElement('p')
   episodes.textContent = `${animeData.episodes} episodes | ${animeData.duration} minutes per ep`
 
@@ -170,15 +192,14 @@ const createAnime = (animeData) => {
     rankings.appendChild(rankingSpan)
   })
 
-  box.appendChild(rankings)
+  const animeInfo = document.createElement('div')
+  animeInfo.classList.add('anime-info')
 
+  animeInfo.appendChild(rankings)
+  animeInfo.appendChild(box)
 
-
-  animeInfoDiv.appendChild(box)
-
-  animeContainer.appendChild(animeBannerDiv)
-  animeContainer.appendChild(animeInfoDiv)
-};
+  return animeInfo;
+}
 
 export {
   createAnime,
