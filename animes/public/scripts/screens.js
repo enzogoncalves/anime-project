@@ -37,15 +37,15 @@ function createNonAnimeFoundScreen() {
   let NonAnimeFoundScreen = document.createElement("div");
   NonAnimeFoundScreen.classList.add("nonAnimeFound");
 
-  const a = document.createElement("a");
-  a.setAttribute("href", "#");
-  a.textContent = "Clique aqui para adicionar!";
-  a.style.color = "#FF6D00";
+  const time = document.createElement("time");
+  time.setAttribute("href", "#");
+  time.textContent = "Clique aqui para adicionar!";
+  time.style.color = "#FF6D00";
 
   const p = document.createElement("p");
   p.textContent = "Nenhum anime encontrado. ";
 
-  p.appendChild(a);
+  p.appendChild(time);
 
   NonAnimeFoundScreen.appendChild(p);
 
@@ -159,36 +159,43 @@ function createAnimeIntro(animeData) {
 }
 
 function createAnimeInfo(animeData) {
-  const box = document.createElement('div')
+  const info = document.createElement('div')
+  info.classList.add('info')
   
-  const episodes = document.createElement('p')
-  episodes.textContent = `${animeData.episodes} episodes | ${animeData.duration} minutes per ep`
+  if(animeData.episodes == null) {
+    info.appendChild(createInfo('Airing', `Ep ${animeData.nextAiringEpisode.episode}: ${getTime(animeData.nextAiringEpisode.timeUntilAiring)}`))
+  } else {
+    info.appendChild(createInfo('Episodes', animeData.episodes))
+  }
+    
+  info.appendChild(createInfo('Genres', animeData.genres))
 
-  box.appendChild(episodes)
+  info.appendChild(createInfo('Format', animeData.format))
 
-  const genres = document.createElement('p')
-  genres.textContent = 'Genres: '
+  info.appendChild(createInfo('Status', animeData.status))
 
-  animeData.genres.forEach((genre) => {
-    const span = document.createElement('span')
-    span.classList.add('gen')
-    span.textContent = genre;
-    genres.appendChild(span)
-  })
+  info.appendChild(createInfo('Start Date', getDate(animeData.startDate)))
 
-  box.appendChild(genres)
+  info.appendChild(createInfo('Season', `${animeData.season} ${animeData.seasonYear}`))
 
-  const type = document.createElement('p')
-  type.textContent = `Format: ${animeData.format}`
+  info.appendChild(createInfo('Average Score', animeData.averageScore + '%'))
 
-  box.appendChild(type)
+  info.appendChild(createInfo('Mean Score', animeData.meanScore + '%'))
+
+  info.appendChild(createInfo('Popularity', animeData.popularity))
+
+  info.appendChild(createInfo('Favourites', animeData.favourites))
+
+
 
   const rankings = document.createElement('div')
   rankings.classList.add('rankings')
 
   animeData.rankings.forEach((ranking) => {
     const rankingSpan = document.createElement('span')
-    rankingSpan.textContent = `#${ranking.rank} ${ranking.context} ${ranking.year}`
+    rankingSpan.textContent = `#${ranking.rank} ${ranking.context} ${ranking.year == null 
+      ? '' 
+      : ranking.year}`
     rankings.appendChild(rankingSpan)
   })
 
@@ -196,9 +203,55 @@ function createAnimeInfo(animeData) {
   animeInfo.classList.add('anime-info')
 
   animeInfo.appendChild(rankings)
-  animeInfo.appendChild(box)
+  animeInfo.appendChild(info)
 
   return animeInfo;
+}
+
+function createInfo(title, data) {
+  const eachInfo = document.createElement('div')
+  eachInfo.classList.add('eachInfo')
+  
+  const infoTitle = document.createElement('p')
+  infoTitle.classList.add('infoTitle')
+  infoTitle.textContent = title;
+
+  const infoData = document.createElement('p')
+  infoData.classList.add('infoData')
+
+  if(typeof data != 'object') {
+    infoData.textContent = data;
+  } else {
+    data.forEach((dat) => {
+      infoData.textContent += dat + ', ';
+    })
+    infoData.textContent = infoData.textContent.slice(0, infoData.textContent.length - 2)
+  }
+
+  eachInfo.appendChild(infoTitle)
+  eachInfo.appendChild(infoData)
+     
+  return eachInfo;
+}
+
+function getTime(time) {
+  const times = 
+  { 
+    seconds: time%60,
+    minutes:Math.trunc(time/60)%60,
+    hours:Math.trunc(time/60/60)%24,
+    days:Math.trunc(time/60/60/24)
+  }
+
+  return `${times.days}d ${times.hours}h ${times.minutes}m`;
+}
+
+function getDate({day, month, year}) {
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  month = months[month - 1];
+  
+  return `${month} ${day}, ${year}`
 }
 
 export {

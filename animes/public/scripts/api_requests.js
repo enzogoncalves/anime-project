@@ -64,7 +64,10 @@ function getAnime(id) {
         isAdult
         description
         averageScore
+        popularity
+        favourites
         format
+        status
         startDate {
           year
           month
@@ -75,6 +78,8 @@ function getAnime(id) {
           month
           day
         }
+        season
+        seasonYear
         meanScore
         rankings{
           rank

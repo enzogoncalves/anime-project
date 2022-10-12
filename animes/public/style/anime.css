@@ -36,7 +36,7 @@
 }
 
 .anime-intro .anime-cover {
-  max-width: 100px;
+  max-width: 120px;
   align-self: baseline;
   margin-right: 1rem;
   box-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
@@ -63,13 +63,31 @@
   margin-left: 5vw;
 }
 
+.anime-info .info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  overflow-x: scroll;
+  padding-block: 1rem;
+  margin-right: 5vw;
+}
+
+.anime-info .info .eachInfo {
+  background-color: white;
+  flex-shrink: 0;
+}
+
 .rankings {
   display: flex;
   flex-direction: column;
+  gap: .5rem;
 }
 
 .rankings span {
-  background-color: var(--color-dark);
+  background-color: white;
+  color: var(--color-orange);
+  font-weight: 600;
+  padding: .25rem .5rem;
   width: fit-content;
   border-radius: 4px;
 }
@@ -105,7 +123,7 @@
   width: 1rem;
 }
 
-@media (max-width: 485px) {
+@media (max-width: 505px) {
   .options {
     align-self: flex-start;
     flex-direction: column;

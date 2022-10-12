@@ -36,7 +36,7 @@ function showAnime(id) {
 
 let test = window.location.href.slice(window.location.href.indexOf('anime'))
 test = Number(test.slice(test.indexOf('/') + 1))
-showAnime(1232);
+showAnime(97938);
 
 const btns_functions = document.querySelectorAll('.btn-functions');
 
