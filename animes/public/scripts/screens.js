@@ -140,11 +140,6 @@ function createAnimeIntro(animeData) {
   
   box.appendChild(animeName)
   
-  const japaneseName = document.createElement('p')
-  japaneseName.textContent = `Native name: ${animeData.title.native}`
-  
-  box.appendChild(japaneseName)
-  
   const synopse = document.createElement('p')
   synopse.innerHTML = `Synopse: ${animeData.description}`
 
@@ -159,34 +154,58 @@ function createAnimeIntro(animeData) {
 }
 
 function createAnimeInfo(animeData) {
-  const info = document.createElement('div')
-  info.classList.add('info')
+  const data = document.createElement('div')
+  data.classList.add('data')
   
   if(animeData.episodes == null) {
-    info.appendChild(createInfo('Airing', `Ep ${animeData.nextAiringEpisode.episode}: ${getTime(animeData.nextAiringEpisode.timeUntilAiring)}`))
+    data.appendChild(createInfo('Airing', `Ep ${animeData.nextAiringEpisode.episode}: ${getTime(animeData.nextAiringEpisode.timeUntilAiring)}`))
   } else {
-    info.appendChild(createInfo('Episodes', animeData.episodes))
+    data.appendChild(createInfo('Episodes', animeData.episodes))
   }
+
+  data.appendChild(createInfo('Format', animeData.format))
     
-  info.appendChild(createInfo('Genres', animeData.genres))
+  data.appendChild(createInfo('Status', animeData.status))
 
-  info.appendChild(createInfo('Format', animeData.format))
+  data.appendChild(createInfo('Start Date', getDate(animeData.startDate)))
+  
+  data.appendChild(createInfo('Season', `${animeData.season} ${animeData.seasonYear}`))
+  
+  data.appendChild(createInfo('Average Score', animeData.averageScore + '%'))
+  
+  data.appendChild(createInfo('Mean Score', animeData.meanScore + '%'))
+  
+  data.appendChild(createInfo('Popularity', animeData.popularity))
+  
+  data.appendChild(createInfo('Favourites', animeData.favourites))
+  
+  let producers = [];
+  
+  animeData.studios.edges.forEach((studio) => {
+    if(studio.isMain) {
+      data.appendChild(createInfo('Studio', studio.node.name))
+    } else {
+      producers.push(studio.node.name)
+    }
+  })
+  
+  data.appendChild(createInfo('Producers', producers))
+  
+  data.appendChild(createInfo('Source', animeData.source))
+  
+  if(animeData.hashtag) {
+    data.appendChild(createInfo('Hashtag', animeData.hashtag))
+  }
+  
+  data.appendChild(createInfo('Genres', animeData.genres))
+  
+  data.appendChild(createInfo('Romaji', animeData.title.romaji))
 
-  info.appendChild(createInfo('Status', animeData.status))
+  data.appendChild(createInfo('Romaji', animeData.title.english))
 
-  info.appendChild(createInfo('Start Date', getDate(animeData.startDate)))
+  data.appendChild(createInfo('Romaji', animeData.title.native))
 
-  info.appendChild(createInfo('Season', `${animeData.season} ${animeData.seasonYear}`))
-
-  info.appendChild(createInfo('Average Score', animeData.averageScore + '%'))
-
-  info.appendChild(createInfo('Mean Score', animeData.meanScore + '%'))
-
-  info.appendChild(createInfo('Popularity', animeData.popularity))
-
-  info.appendChild(createInfo('Favourites', animeData.favourites))
-
-
+  data.appendChild(createInfo('Synonyms', animeData.synonyms))
 
   const rankings = document.createElement('div')
   rankings.classList.add('rankings')
@@ -200,38 +219,38 @@ function createAnimeInfo(animeData) {
   })
 
   const animeInfo = document.createElement('div')
-  animeInfo.classList.add('anime-info')
+  animeInfo.classList.add('anime-data')
 
   animeInfo.appendChild(rankings)
-  animeInfo.appendChild(info)
+  animeInfo.appendChild(data)
 
   return animeInfo;
 }
 
-function createInfo(title, data) {
-  const eachInfo = document.createElement('div')
-  eachInfo.classList.add('eachInfo')
+function createInfo(type, value) {
+  const dataSet = document.createElement('div')
+  dataSet.classList.add('data-set')
   
-  const infoTitle = document.createElement('p')
-  infoTitle.classList.add('infoTitle')
-  infoTitle.textContent = title;
+  const dataType = document.createElement('p')
+  dataType.classList.add('data-type')
+  dataType.textContent = type;
 
-  const infoData = document.createElement('p')
-  infoData.classList.add('infoData')
+  const dataValue = document.createElement('p')
+  dataValue.classList.add('data-value')
 
-  if(typeof data != 'object') {
-    infoData.textContent = data;
+  if(typeof value != 'object') {
+    dataValue.textContent = value;
   } else {
-    data.forEach((dat) => {
-      infoData.textContent += dat + ', ';
+    value.forEach((val) => {
+      dataValue.textContent += val + ', ';
     })
-    infoData.textContent = infoData.textContent.slice(0, infoData.textContent.length - 2)
+    dataValue.textContent = dataValue.textContent.slice(0, dataValue.textContent.length - 2)
   }
 
-  eachInfo.appendChild(infoTitle)
-  eachInfo.appendChild(infoData)
+  dataSet.appendChild(dataType)
+  dataSet.appendChild(dataValue)
      
-  return eachInfo;
+  return dataSet;
 }
 
 function getTime(time) {

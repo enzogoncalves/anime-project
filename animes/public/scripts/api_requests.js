@@ -67,7 +67,9 @@ function getAnime(id) {
         popularity
         favourites
         format
+        source
         status
+        hashtag
         startDate {
           year
           month
@@ -93,6 +95,15 @@ function getAnime(id) {
           timeUntilAiring
           episode
         }
+        studios {
+          edges {
+            node {
+              name 
+            }
+            isMain
+          }
+        }
+        synonyms
       }
     }
   `

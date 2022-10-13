@@ -58,23 +58,38 @@
   height: max-content;
 }
 
-.anime-info {
-  width: vw;
+.anime-data {
   margin-left: 5vw;
+  margin-top: 2rem;
 }
 
-.anime-info .info {
+.anime-data .data {
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 1.35rem;
   overflow-x: scroll;
-  padding-block: 1rem;
+  padding: 1rem;
   margin-right: 5vw;
+  margin-block: 2rem;
+  background-color: white;
+  border-radius: 6px;
 }
 
-.anime-info .info .eachInfo {
-  background-color: white;
+.anime-data .data .data-set {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
   flex-shrink: 0;
+}
+
+.anime-data .data .data-set .data-type {
+  font-size: .8rem;
+  color: var(--dark-blue);
+  font-weight: 600;
+}
+
+.anime-data .data .data-set .data-value {
+  font-size: .8rem;
 }
 
 .rankings {
@@ -85,7 +100,7 @@
 
 .rankings span {
   background-color: white;
-  color: var(--color-orange);
+  color: var(--dark-blue);
   font-weight: 600;
   padding: .25rem .5rem;
   width: fit-content;
@@ -123,7 +138,7 @@
   width: 1rem;
 }
 
-@media (max-width: 505px) {
+@media (max-width: 520px) {
   .options {
     align-self: flex-start;
     flex-direction: column;
@@ -155,6 +170,30 @@
 
   .options button {
     width: fit-content;
+  }
+
+  .anime-data {
+    display: grid;
+    column-gap: 40px;
+    grid-template-columns: 208px auto;
+    grid-template-rows: auto auto;
+  }
+
+  .anime-data .data {
+    grid-row: 2;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin: 0;
+    overflow-x: auto;
+  }
+
+  .anime-data .data .data-set {
+    gap: .25rem;
+  }
+
+  .rankings {
+    margin-bottom: 1.5rem;
   }
 }
 
