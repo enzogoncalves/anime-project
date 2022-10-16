@@ -1,5 +1,5 @@
 module.exports = {
-  test(req, res) {
-    res.render('anime')
+  enterAnime(req, res) {
+    res.render('anime', {id: req.params.id})
   }
 }

@@ -2,7 +2,7 @@
   "name": "animes",
   "version": "1.0.0",
   "description": "",
-  "main": "src/site_server.js",
+  "main": "src/server.js",
   "scripts": {
     "start": "nodemon ."
   },

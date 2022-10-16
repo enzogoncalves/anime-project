@@ -4,8 +4,6 @@ import {
 
 import { getAnime, handleResponse, handleError } from "./api_requests.js";
 
-import { carousel } from "./script.js";
-
 function changeIcon(btn) {
   const btnImg = String(btn.children[0].getAttribute('src'))
 
@@ -31,12 +29,10 @@ function showAnime(id) {
       handleData(data);
     })
     .catch(handleError)
-    .finally(carousel);
 }
 
-let test = window.location.href.slice(window.location.href.indexOf('anime'))
-test = Number(test.slice(test.indexOf('/') + 1))
-showAnime(97938);
+const id = document.querySelector('.animeContainer').getAttribute('id').replace('#', '')
+showAnime(id);
 
 const btns_functions = document.querySelectorAll('.btn-functions');
 
