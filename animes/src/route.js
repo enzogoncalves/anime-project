@@ -7,6 +7,6 @@ route.get("/animes", (req, res) => {
   res.render("index");
 });
 
-route.get("/anime/:id", animeActions.enterAnime);
+route.get("/anime/:id", animeActions.test);
 
 module.exports = route;
