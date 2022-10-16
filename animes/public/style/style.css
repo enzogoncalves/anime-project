@@ -8,9 +8,11 @@
 
 :root {
   --orange: #f77f00;
-  --dark: #222;
-  --dark-blue: #003049;
+  --dark: #001a2c;
+  --dark-blue: #001a2c;
   --font-pattern: 'Montserrat', sans-serif;
+  --dark-page-background: #333;
+  --dark-data-backgorund: #4B4B4B;
 }
 
 @font-face {
@@ -25,7 +27,7 @@
 }
 
 body {
-  background-color: #333;
+  background-color: var(--dark-page-background);
   font-family: var(--font-pattern);
 }
 

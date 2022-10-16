@@ -20,9 +20,9 @@
   <link rel="stylesheet" href="/style/flickity.min.css">
 
   <!-- JAVASCRIPT -->
-  <script type="module" src="/scripts/screens.js"></script>
+  <!-- <script type="module" src="/scripts/screens.js"></script> -->
   <script type="module" src="/scripts/script.js"></script>
-  <script type="module" src="/scripts/anime.js" defer></script>
+  <script type="module" src="/scripts/anime.js"></script>
   <script src="/scripts/flickity.pkgd.min.js"></script>
 
 
@@ -41,7 +41,14 @@
     </nav>
   </header>
   <main>
-    <section class="animeContainer">
+    <section id="#<%= id %>" class="animeContainer">
+      <!-- <div class="data-container">
+        <h3 class="data-type">Description</h3>
+        <p class="data-value">Denji is a teenage boy living with a Chainsaw Devil named Pochita. Due to the debt his father left behind, he has been living a rock-bottom life while repaying his debt by harvesting devil corpses with Pochita.<br><br>
+          One day, Denji is betrayed and killed. As his consciousness fades, he makes a contract with Pochita and gets revived as "Chainsaw Man" — a man with a devil's heart.<br>
+          <br>
+          (Source: Crunchyroll)</p>
+      </div> -->
           <div class="options">
             <button class="btn-functions" data-type="likes" data-function="add">Like<img src="/icons/heart-o.svg"></img></button>
             <button class="btn-functions" data-type="favorites" data-function="add">Favorite<img src="/icons/star-o.svg"></img></button>
