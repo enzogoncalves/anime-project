@@ -96,11 +96,14 @@ const createAnimeList = (
   } else if (parentDiv == 2) {
     popularityAnimes.appendChild(animeScreen);
   }
+
+  animeScreen.addEventListener('click', () => {
+    window.location.href = `anime/${animeId}`
+  })
 };
 
 const createAnime = (animeData) => {
   const animeContainer = document.querySelector(".animeContainer");
-  animeContainer.setAttribute("id", animeData.id);
 
   animeContainer.appendChild(createAnimeBanner(animeData.bannerImage))
   animeContainer.appendChild(createAnimeIntro(animeData))
@@ -141,7 +144,7 @@ function createAnimeIntro(animeData) {
   box.appendChild(animeName)
   
   const synopse = document.createElement('p')
-  synopse.innerHTML = `Synopse: ${animeData.description}`
+  synopse.innerHTML = animeData.description;
 
   const options = document.querySelector('.options');
   options.remove()
@@ -163,22 +166,76 @@ function createAnimeInfo(animeData) {
     data.appendChild(createInfo('Episodes', animeData.episodes))
   }
 
-  data.appendChild(createInfo('Format', animeData.format))
+  const dataArr = [
+    {
+      type: 'Format',
+      value: animeData.format
+    },
+    {
+      type: 'Status',
+      value: animeData.status
+    },
+    {
+      type: 'Start Date',
+      value: getDate(animeData.startDate)
+    },
+    {
+      type: 'Season',
+      value: `${animeData.season} ${animeData.seasonYear}`
+    },
+    {
+      type: 'Average Score',
+      value: `${animeData.averageScore}%`
+    },
+    {
+      type: 'Mean Score',
+      value: `${animeData.meanScore}%`
+    },
+    {
+      type: 'Popularity',
+      value: animeData.popularity
+    },
+    {
+      type: 'Favourites',
+      value: animeData.favourites
+    },
+    {
+      type: 'Source',
+      value: animeData.source
+    },
+    {
+      type: 'Hashtag',
+      value: animeData.hashtag
+    },
     
-  data.appendChild(createInfo('Status', animeData.status))
+    {
+      type: 'Genres',
+      value: animeData.genres
+    },
+    {
+      type: 'Romaji',
+      value: animeData.title.romaji
+    },
+    {
+      type: 'English',
+      value: animeData.title.english
+    },
+    {
+      type: 'Native',
+      value: animeData.title.native
+    },
+    {
+      type: 'Synonyms',
+      value: animeData.synonyms
+    },
+  ]
 
-  data.appendChild(createInfo('Start Date', getDate(animeData.startDate)))
-  
-  data.appendChild(createInfo('Season', `${animeData.season} ${animeData.seasonYear}`))
-  
-  data.appendChild(createInfo('Average Score', animeData.averageScore + '%'))
-  
-  data.appendChild(createInfo('Mean Score', animeData.meanScore + '%'))
-  
-  data.appendChild(createInfo('Popularity', animeData.popularity))
-  
-  data.appendChild(createInfo('Favourites', animeData.favourites))
-  
+  dataArr.forEach((dataItem) => {
+    if(typeof dataItem.value == 'string' || dataItem.value != null) {
+        data.appendChild(createInfo(dataItem.type, dataItem.value))
+    }
+  })  
+
   let producers = [];
   
   animeData.studios.edges.forEach((studio) => {
@@ -188,24 +245,8 @@ function createAnimeInfo(animeData) {
       producers.push(studio.node.name)
     }
   })
-  
+
   data.appendChild(createInfo('Producers', producers))
-  
-  data.appendChild(createInfo('Source', animeData.source))
-  
-  if(animeData.hashtag) {
-    data.appendChild(createInfo('Hashtag', animeData.hashtag))
-  }
-  
-  data.appendChild(createInfo('Genres', animeData.genres))
-  
-  data.appendChild(createInfo('Romaji', animeData.title.romaji))
-
-  data.appendChild(createInfo('Romaji', animeData.title.english))
-
-  data.appendChild(createInfo('Romaji', animeData.title.native))
-
-  data.appendChild(createInfo('Synonyms', animeData.synonyms))
 
   const rankings = document.createElement('div')
   rankings.classList.add('rankings')
