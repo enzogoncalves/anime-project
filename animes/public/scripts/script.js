@@ -16,7 +16,7 @@ menu_toggle.addEventListener("click", ({ target }) => {
     : nav.classList.add("active");
 });
 
-function carousel() {
+export default function carousel() {
   const elem = document.querySelectorAll(".main-carousel");
   elem.forEach((el) => {
     const flkty = new Flickity(el, {
@@ -28,4 +28,3 @@ function carousel() {
   });
 }
 
-export { carousel };
