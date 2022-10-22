@@ -104,8 +104,11 @@ const createAnimeList = (
 
 const createAnime = (animeData) => {
   const animeContainer = document.querySelector(".animeContainer");
+  // const options = document.querySelector('.options');
+  // options.remove()
 
   // animeContainer.appendChild(createAnimeBanner(animeData.bannerImage))
+  // animeContainer.appendChild(options)
   // animeContainer.appendChild(createAnimeIntro(animeData))
   // animeContainer.appendChild(createAnimeInfo(animeData))
 };
@@ -146,12 +149,8 @@ function createAnimeIntro(animeData) {
   const synopse = document.createElement('p')
   synopse.innerHTML = animeData.description;
 
-  const options = document.querySelector('.options');
-  options.remove()
-
   box.appendChild(synopse)
   animeIntroDiv.appendChild(box)
-  animeIntroDiv.appendChild(options)
   
   return animeIntroDiv;
 }
