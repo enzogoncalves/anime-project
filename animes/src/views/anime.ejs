@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/309e31f583.js" crossorigin="anonymous"></script>
   
   <!-- AXIOS -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -20,23 +21,20 @@
   <link rel="stylesheet" href="/style/flickity.min.css">
 
   <!-- JAVASCRIPT -->
-  <!-- <script type="module" src="/scripts/screens.js"></script> -->
+  <script type="module" src="/scripts/screens.js"></script>
   <script type="module" src="/scripts/script.js"></script>
-  <!-- <script type="module" src="/scripts/anime.js"></script> -->
+  <script type="module" src="/scripts/anime.js"></script>
   <script src="/scripts/flickity.pkgd.min.js"></script>
 
 
 </head>
 <body>
   <header>
-    <nav class="side-bar">
-      <h1>teste</h1>
-    </nav>
+    <h1 id="logo">Animes</h1>
+    <i class="fa-solid fa-bars menu-toggle"></i>
     <nav>
-      <h1 id="logo">Animes</h1>
-      <img src="/icons/menu.svg" role="button" class="menu_toggle"></img>
       <ul>
-        <li><a href="/animes">Página Inicial</a></li>
+        <li><a href="#">Página Inicial</a></li>
         <li><a href="#">Minha lista</a></li>
         <li><a href="#">Favoritos</a></li>
         <li><a href="#">Curtidos</a></li>
@@ -45,13 +43,25 @@
   </header>
   <main>
     <section id="#<%= id %>" class="animeContainer">
-      
-
-          <!-- <div class="options">
-            <button class="btn-functions" data-type="likes" data-function="add">Like<img src="/icons/heart-o.svg"></img></button>
-            <button class="btn-functions" data-type="favorites" data-function="add">Favorite<img src="/icons/star-o.svg"></img></button>
-            <button class="btn-functions" data-type="mylist" data-function="add">My List<img src="/icons/plus.svg"></img></button>
-          </div> -->
+      <div class="anime-banner">
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/banner/127230-lf01ya5ny8aH.jpg" alt="anime banner">
+      </div>
+      <div class="options">
+        <button class="btn-functions" data-type="likes" data-function="add"><i class="fa-regular fa-heart"></i></button>
+        <button class="btn-functions" data-type="favorites" data-function="add"><i class="fa-regular fa-star"></i></button>
+        <button class="btn-functions" data-type="mylist" data-function="add"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      <div class="anime-intro">
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx127230-FlochcFsyoF4.png" alt="anime cover" class="anime-cover">
+        <div class="description">
+          <h2>Description</h2>
+          <p>"Denji is a teenage boy living with a Chainsaw Devil named Pochita. Due to the debt his father left behind, he has been living a rock-bottom life while repaying his debt by harvesting devil corpses with Pochita.<br><br>
+            One day, Denji is betrayed and killed. As his consciousness fades, he makes a contract with Pochita and gets revived as "Chainsaw Man" — a man with a devil's heart.
+            <br>
+            <br>
+            (Source: Crunchyroll)"</p>
+        </div>
+      </div>
     </section>
   </main>
   <p id="w"></p>

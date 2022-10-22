@@ -8,11 +8,13 @@
 
 :root {
   --orange: #f77f00;
-  --dark: #001a2c;
-  --dark-blue: #001a2c;
+  --dark: #080A13;
+  --dark-blue: #1f2531;
+  --light-blue: #4dbffd;
+  --light-blue-shadow: #4dbffd56;
+  --white: #F7F5F5;
   --font-pattern: 'Montserrat', sans-serif;
-  --dark-page-background: #333;
-  --dark-data-backgorund: #4B4B4B;
+  --grey: #797c85;
 }
 
 @font-face {
@@ -27,7 +29,7 @@
 }
 
 body {
-  background-color: var(--dark-page-background);
+  background-color: var(--dark-blue);
   font-family: var(--font-pattern);
 }
 
@@ -46,15 +48,16 @@ header {
 }
 
 header #logo {
-  color: var(--orange);
+  color: var(--light-blue);
   font-family: Fontstars;
   font-size: 2rem;
 }
 
-header .menu_toggle {
-  width: 32px;
+header .menu-toggle {
   cursor: pointer;
-  color: var(--orange);
+  color: var(--white);
+  font-size: 32px;
+  pointer-events: all;
 }
 
 nav {
@@ -78,75 +81,20 @@ nav.active ul li a{
   text-decoration: none;
   width: 100%;
   display: inline-block;
-  color: white;
-  background-color: #222;
+  color: var(--white);
+  background-color: var(--grey);
   text-align: center;
   padding-block: .75rem;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid var(--dark-blue);
   transition: background .2s;
 }
 
 nav.active ul li a:hover {
-  background-color: #111;
+  background-color: var(--light-blue);
 }
 
 /* ANIME */
-.container > h2 {
-  margin-bottom: .5rem;
-  color: white;
-}
 
-.carousel-cell {
-  margin-right: .5rem;
-}
-
-.anime {
-  cursor: pointer;
-  max-width: fit-content;
-  flex: 1 0 0;
-  width: clamp(110px, 25vw, 150px);
-  height: 300px;
-}
-
-.anime .anime-cover {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  border-radius: 6px;
-}
-
-.anime .anime-cover img {
-  transition: .2s;
-  display: block;
-  /* width: 100%; */
-  height: clamp(170px, 30vw, 220px);
-  object-fit: cover;
-}
-
-.anime .anime-cover img:hover {
-  transform: scale(1.1);
-}
-
-.anime .episodes {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
-  background-color: var(--orange);
-  padding: .25rem .5rem;
-  color: white;
-  border-top-right-radius: 12px;
-  font-size: .8rem;
-}
-
-.anime .anime-title {
-  color: white;
-  text-align: center;
-  font-size: .9rem;
-  font-weight: 500;
-  margin-top: .25rem;
-}
 
 .loading, .error-screen, .nonAnimeFound {
   height: 200px;
@@ -181,10 +129,6 @@ nav.active ul li a:hover {
 
 .error-screen img{
   max-width: 250px;
-}
-
-img path {
-  fill: black;
 }
 
 

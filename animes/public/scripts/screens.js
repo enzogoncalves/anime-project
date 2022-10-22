@@ -105,9 +105,9 @@ const createAnimeList = (
 const createAnime = (animeData) => {
   const animeContainer = document.querySelector(".animeContainer");
 
-  animeContainer.appendChild(createAnimeBanner(animeData.bannerImage))
-  animeContainer.appendChild(createAnimeIntro(animeData))
-  animeContainer.appendChild(createAnimeInfo(animeData))
+  // animeContainer.appendChild(createAnimeBanner(animeData.bannerImage))
+  // animeContainer.appendChild(createAnimeIntro(animeData))
+  // animeContainer.appendChild(createAnimeInfo(animeData))
 };
 
 function createAnimeBanner(bannerImage) {
