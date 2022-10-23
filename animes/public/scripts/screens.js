@@ -103,27 +103,25 @@ const createAnimeList = (
 };
 
 const createAnime = (animeData) => {
-  const animeContainer = document.querySelector(".animeContainer");
+  const animeContainer = document.querySelector(".anime-container");
+  const mainTag = document.querySelector('main')
   // const options = document.querySelector('.options');
   // options.remove()
 
-  // animeContainer.appendChild(createAnimeBanner(animeData.bannerImage))
+  // mainTag.appendChild(createAnimeBanner(animeData.bannerImage))
   // animeContainer.appendChild(options)
   // animeContainer.appendChild(createAnimeIntro(animeData))
   // animeContainer.appendChild(createAnimeInfo(animeData))
 };
 
 function createAnimeBanner(bannerImage) {
-  const animeBannerDiv = document.createElement("div");
-  animeBannerDiv.classList.add("anime-banner");
 
   const animeBanner = document.createElement("img");
+  animeBanner.classList.add("anime-banner");
   animeBanner.setAttribute("alt", "anime banner");
   animeBanner.setAttribute("src", bannerImage);
 
-  animeBannerDiv.appendChild(animeBanner);
-
-  return animeBannerDiv
+  return animeBanner;
 }
 
 function createAnimeIntro(animeData) {
@@ -156,13 +154,13 @@ function createAnimeIntro(animeData) {
 }
 
 function createAnimeInfo(animeData) {
-  const data = document.createElement('div')
-  data.classList.add('data')
+  const details = document.createElement('div')
+  details.classList.add('details')
   
   if(animeData.episodes == null) {
-    data.appendChild(createInfo('Airing', `Ep ${animeData.nextAiringEpisode.episode}: ${getTime(animeData.nextAiringEpisode.timeUntilAiring)}`))
+    details.appendChild(createInfo('Airing', `Ep ${animeData.nextAiringEpisode.episode}: ${getTime(animeData.nextAiringEpisode.timeUntilAiring)}`))
   } else {
-    data.appendChild(createInfo('Episodes', animeData.episodes))
+    details.appendChild(createInfo('Episodes', animeData.episodes))
   }
 
   const dataArr = [
@@ -231,7 +229,7 @@ function createAnimeInfo(animeData) {
 
   dataArr.forEach((dataItem) => {
     if(typeof dataItem.value == 'string' || dataItem.value != null) {
-        data.appendChild(createInfo(dataItem.type, dataItem.value))
+        details.appendChild(createInfo(dataItem.type, dataItem.value))
     }
   })  
 
@@ -239,13 +237,13 @@ function createAnimeInfo(animeData) {
   
   animeData.studios.edges.forEach((studio) => {
     if(studio.isMain) {
-      data.appendChild(createInfo('Studio', studio.node.name))
+      details.appendChild(createInfo('Studio', studio.node.name))
     } else {
       producers.push(studio.node.name)
     }
   })
 
-  data.appendChild(createInfo('Producers', producers))
+  details.appendChild(createInfo('Producers', producers))
 
   const rankings = document.createElement('div')
   rankings.classList.add('rankings')
@@ -262,7 +260,7 @@ function createAnimeInfo(animeData) {
   animeInfo.classList.add('anime-data')
 
   animeInfo.appendChild(rankings)
-  animeInfo.appendChild(data)
+  animeInfo.appendChild(details)
 
   return animeInfo;
 }

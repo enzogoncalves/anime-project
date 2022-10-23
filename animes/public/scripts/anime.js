@@ -31,7 +31,7 @@ function showAnime(id) {
     .catch(handleError)
 }
 
-const id = document.querySelector('.animeContainer').getAttribute('id').replace('#', '')
+const id = document.querySelector('.anime-container').getAttribute('id').replace('#', '')
 showAnime(id);
 
 const btns_functions = document.querySelectorAll('.btn-functions');
