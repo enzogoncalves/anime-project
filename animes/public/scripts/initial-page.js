@@ -4,7 +4,7 @@ import {
 
 import { getAnimes, handleResponse, handleError } from "./api_requests.js";
 
-// import { default as carousel } from "./script.js";
+import { default as carousel } from "./script.js";
 
 function handleData(data, parentEl) {
   data.data.Page.media.forEach((anime) => {
@@ -30,13 +30,7 @@ function showAnimes(sort, parentEl) {
       handleData(data, parentEl);
     })
     .catch(handleError)
-    .finally(createScriptTag());
+    .finally(carousel);
 }
 
 showAnimes("TRENDING_DESC", 1);
-
-function createScriptTag() {
-  let script = document.createElement('script')
-  script.src = '/scripts/flickity.js'
-  document.body.append(script)
-}
