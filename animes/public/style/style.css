@@ -10,6 +10,7 @@
   --orange: #f77f00;
   --dark: #080A13;
   --dark-blue: #1f2531;
+  --dark-blue-transparent: #1f2632af;
   --light-blue: #4dbffd;
   --light-blue-shadow: #4dbffd56;
   --white: #F7F5F5;
@@ -73,7 +74,7 @@ nav.active {
   z-index: 999;
 }
 
-nav.active ul {
+nav ul {
   list-style: none;
 }
 
@@ -129,6 +130,51 @@ nav.active ul li a:hover {
 
 .error-screen img{
   max-width: 250px;
+}
+
+@media (min-width: 768px) {
+  header .menu-toggle {
+    display: none;
+  }
+
+  nav, nav.active {
+    display: block;
+    position: static;
+  }
+
+  nav ul, nav.active ul {
+    display: flex;
+    gap: 1rem;
+  }
+  
+
+  nav ul li a, nav.active ul li a {
+    text-decoration: none;
+    width: 100%;
+    display: inline-block;
+    color: var(--white);
+    text-align: center;
+    padding-block: .25rem;
+    padding-inline: .25rem;
+    border-bottom: 1px solid var(--dark-blue);
+    background-color: transparent;
+    position: relative;
+  }
+
+  nav ul li a::before, nav.active ul li a::before {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--light-blue);
+    transition: .2s;
+  }
+
+  nav ul li a:hover::before, nav.active ul li a:hover::before {
+    width: 100%;
+  }
 }
 
 

@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="/style/flickity.min.css" />
 
     <!-- JAVASCRIPT -->
-    <script type="module" src="/scripts/screens.js"></script>
+    <!-- <script type="module" src="/scripts/screens.js"></script> -->
     <script type="module" src="/scripts/script.js"></script>
     <script type="module" src="/scripts/anime.js"></script>
     <script src="/scripts/flickity.pkgd.min.js"></script>
@@ -35,10 +35,10 @@
   <body>
     <header>
       <h1 id="logo">Animes</h1>
-      <i class="fa-solid fa-bars menu-toggle"></i>
+      <button class="fa-solid fa-bars menu-toggle" role="button" onclick="openMenu(this)"></button>
       <nav>
         <ul>
-          <li><a href="#">Página Inicial</a></li>
+          <li><a href="/animes">Página Inicial</a></li>
           <li><a href="#">Minha lista</a></li>
           <li><a href="#">Favoritos</a></li>
           <li><a href="#">Curtidos</a></li>
@@ -46,19 +46,14 @@
       </nav>
     </header>
     <main>
-      <!-- <img
-        src="https://s4.anilist.co/file/anilistcdn/media/anime/banner/127230-lf01ya5ny8aH.jpg"
-        alt="anime banner"
-        class="anime-banner"
-      /> -->
-
+      <!-- <div class="anime-banner"></div> -->
       <section id="#<%= id %>" class="anime-container">
         <!-- <img
           src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx127230-FlochcFsyoF4.png"
           alt="anime cover"
           class="anime-cover"
-        />
-        <h2 class="anime-name">Chainsaw Man</h2>-->
+        /> -->
+        <!-- <h2 class="anime-name">Chainsaw Man</h2> -->
         <div class="options">
           <button class="btn-functions" data-type="likes" data-function="add"
             ><i class="fa-regular fa-heart"></i
@@ -73,7 +68,7 @@
             ><i class="fa-solid fa-plus"></i
           ></button>
         </div>
-        <!--<div class="description">
+        <!-- <div class="description">
           <h2>Description</h2>
           <p
             >"Denji is a teenage boy living with a Chainsaw Devil named Pochita.
@@ -87,9 +82,10 @@
             <br />
             (Source: Crunchyroll)"</p
           >
-        </div>
-        <div class="details"
-          ><div class="data-set"
+        </div> -->
+        <!-- <div class="details"
+          >
+          <div class="data-set"
             ><p class="data-type">Episodes</p><p class="data-value">12</p></div
           ><div class="data-set"
             ><p class="data-type">Format</p><p class="data-value">TV</p></div
@@ -119,12 +115,15 @@
           ><div class="data-set"
             ><p class="data-type">Hashtag</p
             ><p class="data-value">#チェンソーマン #chainsawman</p></div
-          ><div class="data-set"
+          >
+          <div class="data-set"
             ><p class="data-type">Genres</p
             ><p class="data-value"
-              >Action, Comedy, Drama, Horror, Supernatural</p
+              ><span>Action</span><span>Comedy</span><span>Drama</span
+              ><span>Horror</span><span>Supernatural</span></p
             ></div
-          ><div class="data-set"
+          >
+          <div class="data-set"
             ><p class="data-type">Romaji</p
             ><p class="data-value">Chainsaw Man</p></div
           ><div class="data-set"
@@ -141,10 +140,38 @@
           ><div class="data-set"
             ><p class="data-type">Producers</p
             ><p class="data-value">Shueisha</p></div
-          ></div
+          >
+          </div
         > -->
       </section>
     </main>
     <p id="w"></p>
+
+    <script>
+      const nav = document.querySelector("nav");
+
+      function openMenu(el) {
+        if(el.classList.contains('fa-bars')) {
+          el.classList.add('fa-xmark')
+          el.classList.remove('fa-bars')
+        } else {
+          el.classList.add('fa-bars')
+          el.classList.remove('fa-xmark')
+        }
+
+        nav.classList.contains("active")
+          ? nav.classList.remove("active")
+          : nav.classList.add("active");
+      }
+
+      function showRestDesc() {
+      const restDescBtn = document.querySelector('.rest-desc-btn')
+      const restDesc = document.querySelector('.rest-desc')
+      restDescBtn.addEventListener('click', () => {
+        console.log('s')
+        restDesc.style.display = 'block'
+      })
+    }
+    </script>
   </body>
 </html>

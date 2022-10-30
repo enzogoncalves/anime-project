@@ -73,3 +73,4 @@ function animeResponse(response, btn) {
 function animeErr(err) {
   alert('Não foi possível conectar ao servidor')
 }
+

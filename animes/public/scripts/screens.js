@@ -121,10 +121,10 @@ const createAnime = (animeData) => {
 };
   
 function createAnimeBanner(bannerImage) {
-  const animeBanner = document.createElement("img");
+  const animeBanner = document.createElement("div");
   animeBanner.classList.add("anime-banner");
   animeBanner.setAttribute("alt", "anime banner");
-  animeBanner.setAttribute("src", bannerImage);
+  animeBanner.style.backgroundImage = `url('${bannerImage}')`;
 
   return animeBanner;
 }
@@ -149,7 +149,18 @@ function createAnimeTitle(animeName) {
 function createAnimeDescription(animeDescription) {
   const description = document.createElement('div')
   description.classList.add('description')
-  description.innerHTML = `<h2>Description</h2><p>${animeDescription}</p>`;
+  // const restDescBtn = document.createElement('button')
+  // restDescBtn.classList.add('rest-desc-btn')
+  // restDescBtn.textContent('Read more')
+  if(animeDescription.length >= 590) {
+    const minimumDesc = animeDescription.slice(0, 590)
+    const restDesc = animeDescription.slice(590)
+    console.log(restDesc)
+    description.innerHTML = `<h2>Description</h2><p>${minimumDesc}...<span class="rest-desc">${restDesc}</span><button class="rest-desc-btn" onclick="showRestDesc()">Read more</button></p>`;
+
+    
+  }
+  // description.innerHTML = `<h2>Description</h2><p>${animeDescription}</p>`;
   
   return description;
 }
@@ -259,15 +270,15 @@ function createInfo(type, value) {
 
   const dataValue = document.createElement('p')
   dataValue.classList.add('data-value')
-
+  
   if(typeof value != 'object') {
     dataValue.textContent = value;
   } else {
     value.forEach((val) => {
-      dataValue.textContent += val + ', ';
+      dataValue.innerHTML += `<span>${val}</span>`;
     })
-    dataValue.textContent = dataValue.textContent.slice(0, dataValue.textContent.length - 2)
   }
+
 
   dataSet.append(dataType, dataValue)
 
