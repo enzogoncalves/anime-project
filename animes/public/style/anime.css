@@ -216,31 +216,60 @@ img.anime-cover {
 
   .description {
     margin: 0;
+    position: relative;
+  }
+
+  .description.high-desc {
+    height: 300px;
+    overflow-y: hidden;
   }
 
   .description p {
     background-color: var(--dark-blue-transparent);
+    border: none;
   }
   
   .description h2 {
     display: none;
   }
 
-  .rest-desc {
-    display: none;
-  }
-
   .rest-desc-btn {
-    margin-left: .25rem;
+    content: 'Read more';
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    right: 0;
+    bottom: 0;
     cursor: pointer;
     border: none;
     outline: none;
-    background-color: transparent;
-    color: var(--light-blue);
-    font-size: 1.1rem;
+    padding-block: 2rem;
+    background: linear-gradient(to top, var(--white), transparent);
+  }
+
+  .rest-desc-btn.active {
+    bottom: -2rem;
+  }
+
+  .rest-desc-btn::after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: .5rem;
+    color: var(--dark-blue);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .rest-desc-btn::after {
+    content: 'Read more';
+  }
+
+  .rest-desc-btn.active::after {
+    content: 'Read less';
   }
   
-  .rest-desc-btn:hover {
+  .rest-desc-btn:hover::after {
     text-decoration: underline;
   }
 

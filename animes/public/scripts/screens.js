@@ -149,18 +149,34 @@ function createAnimeTitle(animeName) {
 function createAnimeDescription(animeDescription) {
   const description = document.createElement('div')
   description.classList.add('description')
-  // const restDescBtn = document.createElement('button')
-  // restDescBtn.classList.add('rest-desc-btn')
-  // restDescBtn.textContent('Read more')
-  if(animeDescription.length >= 590) {
-    const minimumDesc = animeDescription.slice(0, 590)
-    const restDesc = animeDescription.slice(590)
-    console.log(restDesc)
-    description.innerHTML = `<h2>Description</h2><p>${minimumDesc}...<span class="rest-desc">${restDesc}</span><button class="rest-desc-btn" onclick="showRestDesc()">Read more</button></p>`;
 
-    
+  if(animeDescription.length >= 1000) {
+    description.classList.add('high-desc')
+
+    const p = document.createElement('p')
+    p.classList.add('high-desc')
+    p.innerHTML = animeDescription;
+
+    const h2 = document.createElement('h2')
+    h2.textContent = 'Description';
+
+    const restDescBtn = document.createElement('button')
+    restDescBtn.classList.add('rest-desc-btn')
+
+    restDescBtn.addEventListener('click', () => {
+      if(!restDescBtn.classList.contains('active')) {
+        restDescBtn.classList.add('active')
+        description.classList.remove('high-desc')
+      } else {
+        restDescBtn.classList.remove('active')
+        description.classList.add('high-desc')
+      }
+    })
+
+    description.append(h2, p, restDescBtn)
+  } else {    
+    description.innerHTML = `<h2>Description</h2><p>${animeDescription}</p>`;
   }
-  // description.innerHTML = `<h2>Description</h2><p>${animeDescription}</p>`;
   
   return description;
 }
