@@ -11,8 +11,7 @@ function createLoadingScreen() {
   const p = document.createElement("p");
   p.textContent = "carregando...";
 
-  loadingDiv.appendChild(img);
-  loadingDiv.appendChild(p);
+  loadingDiv.append(img, p);
 
   return loadingDiv;
 }
@@ -27,8 +26,7 @@ function createErrorScreen() {
   const p = document.createElement("p");
   p.textContent = "Não conseguimos conectar ao servidor :(";
 
-  errorScreen.appendChild(img);
-  errorScreen.appendChild(p);
+  errorScreen.append(img, p);
 
   return errorScreen;
 }
@@ -88,8 +86,7 @@ const createAnimeList = (
     div.appendChild(animeEpElement);
   }
 
-  animeScreen.appendChild(div);
-  animeScreen.appendChild(animeTitleElement);
+  animeScreen.append(div, animeTitleElement);
 
   if (parentDiv == 1) {
     trendingAnimes.appendChild(animeScreen);
@@ -103,67 +100,95 @@ const createAnimeList = (
 };
 
 const createAnime = (animeData) => {
-  const animeContainer = document.querySelector(".animeContainer");
-
-  animeContainer.appendChild(createAnimeBanner(animeData.bannerImage))
-  animeContainer.appendChild(createAnimeIntro(animeData))
-  animeContainer.appendChild(createAnimeInfo(animeData))
-};
-
-function createAnimeBanner(bannerImage) {
-  const animeBannerDiv = document.createElement("div");
-  animeBannerDiv.classList.add("anime-banner");
-
-  const animeBanner = document.createElement("img");
-  animeBanner.setAttribute("alt", "anime banner");
-  animeBanner.setAttribute("src", bannerImage);
-
-  animeBannerDiv.appendChild(animeBanner);
-
-  return animeBannerDiv
-}
-
-function createAnimeIntro(animeData) {
-  const animeIntroDiv = document.createElement("div");
-  animeIntroDiv.classList.add("anime-intro");
-
-  const animeCover = document.createElement("img");
-  animeCover.classList.add("anime-cover");
-  animeCover.setAttribute('alt', 'anime cover')
-  animeCover.setAttribute('src', animeData.coverImage.large)
-
-  animeIntroDiv.appendChild(animeCover)
-  
-  const box = document.createElement('box')
-  box.classList.add('box')
-  
-  const animeName = document.createElement('h2');
-  animeName.classList.add('anime-name')
-  animeName.textContent = animeData.title.romaji
-  
-  box.appendChild(animeName)
-  
-  const synopse = document.createElement('p')
-  synopse.innerHTML = animeData.description;
+  const animeContainer = document.querySelector(".anime-container");
 
   const options = document.querySelector('.options');
   options.remove()
 
-  box.appendChild(synopse)
-  animeIntroDiv.appendChild(box)
-  animeIntroDiv.appendChild(options)
+  animeContainer.remove()
+
+  const mainTag = document.querySelector('main')
+
+  mainTag.appendChild(createAnimeBanner(animeData.bannerImage))
+  animeContainer.append(
+    createAnimeCover(animeData.coverImage.large), 
+    createAnimeTitle(animeData.title.romaji),
+    options,
+    createAnimeDescription(animeData.description),
+    createAnimeInfo(animeData)
+  );
+  mainTag.appendChild(animeContainer)
+};
   
-  return animeIntroDiv;
+function createAnimeBanner(bannerImage) {
+  const animeBanner = document.createElement("div");
+  animeBanner.classList.add("anime-banner");
+  animeBanner.setAttribute("alt", "anime banner");
+  animeBanner.style.backgroundImage = `url('${bannerImage}')`;
+
+  return animeBanner;
+}
+
+function createAnimeCover(coverImage) {
+  const animeCover = document.createElement("img");
+  animeCover.classList.add("anime-cover");
+  animeCover.setAttribute('alt', 'anime cover')
+  animeCover.setAttribute('src', coverImage)
+
+  return animeCover;
+}
+
+function createAnimeTitle(animeName) {
+  const animeTitle = document.createElement('h2');
+  animeTitle.classList.add('anime-name')
+  animeTitle.textContent = animeName;
+
+  return animeTitle;
+}
+
+function createAnimeDescription(animeDescription) {
+  const description = document.createElement('div')
+  description.classList.add('description')
+
+  if(animeDescription.length >= 1000) {
+    description.classList.add('high-desc')
+
+    const p = document.createElement('p')
+    p.classList.add('high-desc')
+    p.innerHTML = animeDescription;
+
+    const h2 = document.createElement('h2')
+    h2.textContent = 'Description';
+
+    const restDescBtn = document.createElement('button')
+    restDescBtn.classList.add('rest-desc-btn')
+
+    restDescBtn.addEventListener('click', () => {
+      if(!restDescBtn.classList.contains('active')) {
+        restDescBtn.classList.add('active')
+        description.classList.remove('high-desc')
+      } else {
+        restDescBtn.classList.remove('active')
+        description.classList.add('high-desc')
+      }
+    })
+
+    description.append(h2, p, restDescBtn)
+  } else {    
+    description.innerHTML = `<h2>Description</h2><p>${animeDescription}</p>`;
+  }
+  
+  return description;
 }
 
 function createAnimeInfo(animeData) {
-  const data = document.createElement('div')
-  data.classList.add('data')
+  const details = document.createElement('div')
+  details.classList.add('details')
   
   if(animeData.episodes == null) {
-    data.appendChild(createInfo('Airing', `Ep ${animeData.nextAiringEpisode.episode}: ${getTime(animeData.nextAiringEpisode.timeUntilAiring)}`))
+    details.appendChild(createInfo('Airing', `Ep ${animeData.nextAiringEpisode.episode}: ${getTime(animeData.nextAiringEpisode.timeUntilAiring)}`))
   } else {
-    data.appendChild(createInfo('Episodes', animeData.episodes))
+    details.appendChild(createInfo('Episodes', animeData.episodes))
   }
 
   const dataArr = [
@@ -232,7 +257,7 @@ function createAnimeInfo(animeData) {
 
   dataArr.forEach((dataItem) => {
     if(typeof dataItem.value == 'string' || dataItem.value != null) {
-        data.appendChild(createInfo(dataItem.type, dataItem.value))
+        details.appendChild(createInfo(dataItem.type, dataItem.value))
     }
   })  
 
@@ -240,32 +265,15 @@ function createAnimeInfo(animeData) {
   
   animeData.studios.edges.forEach((studio) => {
     if(studio.isMain) {
-      data.appendChild(createInfo('Studio', studio.node.name))
+      details.appendChild(createInfo('Studio', studio.node.name))
     } else {
       producers.push(studio.node.name)
     }
   })
 
-  data.appendChild(createInfo('Producers', producers))
+  details.appendChild(createInfo('Producers', producers))
 
-  const rankings = document.createElement('div')
-  rankings.classList.add('rankings')
-
-  animeData.rankings.forEach((ranking) => {
-    const rankingSpan = document.createElement('span')
-    rankingSpan.textContent = `#${ranking.rank} ${ranking.context} ${ranking.year == null 
-      ? '' 
-      : ranking.year}`
-    rankings.appendChild(rankingSpan)
-  })
-
-  const animeInfo = document.createElement('div')
-  animeInfo.classList.add('anime-data')
-
-  animeInfo.appendChild(rankings)
-  animeInfo.appendChild(data)
-
-  return animeInfo;
+  return details;
 }
 
 function createInfo(type, value) {
@@ -278,20 +286,34 @@ function createInfo(type, value) {
 
   const dataValue = document.createElement('p')
   dataValue.classList.add('data-value')
-
+  
   if(typeof value != 'object') {
     dataValue.textContent = value;
   } else {
     value.forEach((val) => {
-      dataValue.textContent += val + ', ';
+      dataValue.innerHTML += `<span>${val}</span>`;
     })
-    dataValue.textContent = dataValue.textContent.slice(0, dataValue.textContent.length - 2)
   }
 
-  dataSet.appendChild(dataType)
-  dataSet.appendChild(dataValue)
-     
+
+  dataSet.append(dataType, dataValue)
+
   return dataSet;
+}
+
+function createAnimeRanking(rankings) {
+// const rankingsBox = document.createElement('div')
+  // rankingsBox.classList.add('rankings')
+
+  // rankings.forEach((ranking) => {
+  //   const rankingSpan = document.createElement('span')
+  //   rankingSpan.textContent = `#${ranking.rank} ${ranking.context} ${ranking.year == null 
+  //     ? '' 
+  //     : ranking.year}`
+  //   rankingsBox.appendChild(rankingSpan)
+  // })
+
+  // return rankingsBox;
 }
 
 function getTime(time) {

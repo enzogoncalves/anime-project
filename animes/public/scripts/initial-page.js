@@ -4,7 +4,7 @@ import {
 
 import { getAnimes, handleResponse, handleError } from "./api_requests.js";
 
-import { default as carousel } from "./script.js";
+import { default as carousel } from "./flickity-function.js";
 
 function handleData(data, parentEl) {
   data.data.Page.media.forEach((anime) => {
