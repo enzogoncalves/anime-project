@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="/style/flickity.min.css" />
 
     <!-- JAVASCRIPT -->
-    <script type="module" src="/scripts/script.js"></script>
+    <script src="/scripts/script.js" defer></script>
     <script type="module" src="/scripts/anime.js"></script>
     <script src="/scripts/flickity.pkgd.min.js"></script>
   </head>
@@ -145,23 +145,5 @@
       </section>
     </main>
     <p id="w"></p>
-
-    <script>
-      const nav = document.querySelector("nav");
-
-      function openMenu(el) {
-        if(el.classList.contains('fa-bars')) {
-          el.classList.add('fa-xmark')
-          el.classList.remove('fa-bars')
-        } else {
-          el.classList.add('fa-bars')
-          el.classList.remove('fa-xmark')
-        }
-
-        nav.classList.contains("active")
-          ? nav.classList.remove("active")
-          : nav.classList.add("active");
-      }
-    </script>
   </body>
 </html>
