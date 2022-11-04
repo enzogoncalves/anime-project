@@ -55,11 +55,17 @@ const createAnimeList = (
   animeImg = "",
   animeTile = "",
   animeEp = "0",
-  parentDiv
+  initialPage = true,
+  parentDiv = 0
 ) => {
   const animeScreen = document.createElement("div");
   animeScreen.setAttribute("id", animeId);
-  animeScreen.classList.add("anime", "carousel-cell");
+
+  if(initialPage) {
+    animeScreen.classList.add("anime", "carousel-cell");
+  } else {
+    animeScreen.classList.add("anime");
+  }
 
   const div = document.createElement("div");
   div.classList.add("anime-cover");
@@ -92,6 +98,8 @@ const createAnimeList = (
     trendingAnimes.appendChild(animeScreen);
   } else if (parentDiv == 2) {
     popularityAnimes.appendChild(animeScreen);
+  } else {
+    document.querySelector('section').appendChild(animeScreen)
   }
 
   animeScreen.addEventListener('click', () => {
@@ -99,7 +107,7 @@ const createAnimeList = (
   })
 };
 
-const createAnime = (animeData) => {
+const createAnimeScreen = (animeData) => {
   const animeContainer = document.querySelector(".anime-container");
 
   const options = document.querySelector('.options');
@@ -337,7 +345,7 @@ function getDate({day, month, year}) {
 }
 
 export {
-  createAnime,
+  createAnimeScreen,
   createAnimeList,
   createErrorScreen,
   createLoadingScreen,

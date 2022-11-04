@@ -13,6 +13,7 @@ function handleData(data, parentEl) {
       anime.coverImage.large,
       anime.title.romaji,
       anime.episodes,
+      true,
       parentEl
     );
   });
@@ -21,8 +22,6 @@ function handleData(data, parentEl) {
 function showAnimes(sort, parentEl) {
   const req = getAnimes(sort);
   const { url, options } = req;
-
-  console.log(url, options);
 
   fetch(url, options)
     .then(handleResponse)

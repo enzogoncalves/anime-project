@@ -9,11 +9,9 @@ query ($page: Int, $perPage: Int) {
     media(type: ANIME, sort: ${sort}) {
       id
       title {
-        english
         romaji
       }
       coverImage {
-        extraLarge
         large
       }
       episodes
@@ -130,6 +128,43 @@ function getAnime(id) {
   return {url, options}
 }
 
+function getAnimeById(id) { 
+  let query = `
+  query ($id: Int) {
+    Media(id: $id) {
+      id
+      title {
+        romaji
+      }
+      coverImage {
+        large
+      }
+      episodes
+    }
+  }
+  `;
+
+  const variables = {
+    id: id
+  }
+  
+  let url = "https://graphql.anilist.co",
+    options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        query: query,
+        variables: variables,
+      }),
+    };
+
+
+  return {url, options}
+}
+
 function handleResponse(response) {
   return response.json().then(function (json) {
     return response.ok ? json : Promise.reject(json);
@@ -141,4 +176,4 @@ function handleError(error) {
   console.error(error);
 }
 
-export {getAnimes, getAnime, handleResponse, handleError}
+export {getAnimes, getAnime, getAnimeById, handleResponse, handleError}

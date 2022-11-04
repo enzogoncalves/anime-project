@@ -54,4 +54,16 @@
   font-size: .9rem;
   font-weight: 500;
   margin-top: .25rem;
+  width: clamp(110px, 25vw, 150px);
+}
+
+section[data-section="list"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.list-title {
+  color: white;
+  margin-bottom: 1rem;
 }

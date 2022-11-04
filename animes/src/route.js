@@ -8,5 +8,6 @@ route.get("/animes", (req, res) => {
 });
 
 route.get("/anime/:id", animeActions.enterAnime);
+route.get("/animes/:list", animeActions.myList);
 
 module.exports = route;

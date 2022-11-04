@@ -18,23 +18,27 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- CSS -->
-    <link rel="stylesheet" href="/style/style.css" />
     <link rel="stylesheet" href="/style/anime-list.css" />
+    <link rel="stylesheet" href="/style/style.css" />
+    <link rel="stylesheet" href="/style/anime.css" />
     <link rel="stylesheet" href="/style/flickity.min.css" />
 
     <!-- JAVASCRIPT -->
     <script src="/scripts/script.js" defer></script>
-    <script type="module" src="/scripts/initial-page.js"></script>
-    <script src="/scripts/flickity.pkgd.min.js"></script>
-
-    <!-- AXIOS -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/scripts/getAnimes.js"></script>
   </head>
   <body>
     <header>
       <h1 id="logo">Animes</h1>
-      <i class="fa-solid fa-bars menu-toggle"></i>
+      <button
+        class="fa-solid fa-bars menu-toggle"
+        role="button"
+        onclick="openMenu(this)"
+      ></button>
       <nav>
         <ul>
           <li><a href="/animes">Home</a></li>
@@ -44,13 +48,9 @@
         </ul>
       </nav>
     </header>
-    <main>
-      <section>
-        <div class="container">
-          <h2>Têndencias no momento</h2>
-          <div class="anime-list main-carousel" id="trend"> </div>
-        </div>
-      </section>
+    <main class="container">
+      <h1 class="list-title"></h1>
+      <section id="<%= list %>" data-section="list"> </section>
     </main>
     <p id="w"></p>
   </body>

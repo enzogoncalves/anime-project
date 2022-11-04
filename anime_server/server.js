@@ -33,7 +33,7 @@ app.get('/animes/favorites', (req, res) => {
   res.jsonp(animes.favorites)
 })
 
-app.get('/animes/myList', (req, res) => {
+app.get('/animes/my-list', (req, res) => {
   res.jsonp(animes.myList)
 })
 
@@ -50,7 +50,7 @@ app.post('/animes/add/favorites/', (req, res) => {
   res.json("adicionado com sucesso na lista de favoritos")
 })
 
-app.post('/animes/add/myList/', (req, res) => {
+app.post('/animes/add/my-list/', (req, res) => {
   animes.myList.push(req.body.id)
   res.json("adicionado com sucesso na sua lista")
 })
@@ -66,7 +66,6 @@ app.delete('/animes/delete/', (req, res) => {
 })
 
 app.delete('/animes/delete/likes/:id', (req, res) => {
-  console.log(req.params)
   animes.likes = animes.likes.filter((item) => {
     return item != req.params.id
   })
@@ -80,7 +79,7 @@ app.delete('/animes/delete/favorites/:id', (req, res) => {
   res.json("deletado com sucesso dos seus favoritos")
 })
 
-app.delete('/animes/delete/myList/:id', (req, res) => {
+app.delete('/animes/delete/my-list/:id', (req, res) => {
   animes.myList = animes.myList.filter((item) => {
     return item != req.params.id
   })

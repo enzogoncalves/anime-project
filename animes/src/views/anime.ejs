@@ -34,25 +34,22 @@
   <body>
     <header>
       <h1 id="logo">Animes</h1>
-      <button class="fa-solid fa-bars menu-toggle" role="button" onclick="openMenu(this)"></button>
+      <button
+        class="fa-solid fa-bars menu-toggle"
+        role="button"
+        onclick="openMenu(this)"
+      ></button>
       <nav>
         <ul>
-          <li><a href="/animes">Página Inicial</a></li>
-          <li><a href="#">Minha lista</a></li>
-          <li><a href="#">Favoritos</a></li>
-          <li><a href="#">Curtidos</a></li>
+          <li><a href="/animes">Home</a></li>
+          <li><a href="/animes/my-list">My List</a></li>
+          <li><a href="/animes/favorites">Favorites</a></li>
+          <li><a href="/animes/likes">Liked</a></li>
         </ul>
       </nav>
     </header>
     <main>
-      <!-- <div class="anime-banner"></div> -->
-      <section id="#<%= id %>" class="anime-container">
-        <!-- <img
-          src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx127230-FlochcFsyoF4.png"
-          alt="anime cover"
-          class="anime-cover"
-        /> -->
-        <!-- <h2 class="anime-name">Chainsaw Man</h2> -->
+      <section id="<%= id %>" class="anime-container">
         <div class="options">
           <button class="btn-functions" data-type="likes" data-function="add"
             ><i class="fa-regular fa-heart"></i
@@ -63,85 +60,10 @@
             data-function="add"
             ><i class="fa-regular fa-star"></i
           ></button>
-          <button class="btn-functions" data-type="mylist" data-function="add"
+          <button class="btn-functions" data-type="my-list" data-function="add"
             ><i class="fa-solid fa-plus"></i
           ></button>
         </div>
-        <!-- <div class="description">
-          <h2>Description</h2>
-          <p
-            >"Denji is a teenage boy living with a Chainsaw Devil named Pochita.
-            Due to the debt his father left behind, he has been living a
-            rock-bottom life while repaying his debt by harvesting devil corpses
-            with Pochita.<br /><br />
-            One day, Denji is betrayed and killed. As his consciousness fades,
-            he makes a contract with Pochita and gets revived as "Chainsaw Man"
-            — a man with a devil's heart.
-            <br />
-            <br />
-            (Source: Crunchyroll)"</p
-          >
-        </div> -->
-        <!-- <div class="details"
-          >
-          <div class="data-set"
-            ><p class="data-type">Episodes</p><p class="data-value">12</p></div
-          ><div class="data-set"
-            ><p class="data-type">Format</p><p class="data-value">TV</p></div
-          ><div class="data-set"
-            ><p class="data-type">Status</p
-            ><p class="data-value">RELEASING</p></div
-          ><div class="data-set"
-            ><p class="data-type">Start Date</p
-            ><p class="data-value">October 12, 2022</p></div
-          ><div class="data-set"
-            ><p class="data-type">Season</p
-            ><p class="data-value">FALL 2022</p></div
-          ><div class="data-set"
-            ><p class="data-type">Average Score</p
-            ><p class="data-value">87%</p></div
-          ><div class="data-set"
-            ><p class="data-type">Mean Score</p
-            ><p class="data-value">87%</p></div
-          ><div class="data-set"
-            ><p class="data-type">Popularity</p
-            ><p class="data-value">180027</p></div
-          ><div class="data-set"
-            ><p class="data-type">Favourites</p
-            ><p class="data-value">7034</p></div
-          ><div class="data-set"
-            ><p class="data-type">Source</p><p class="data-value">MANGA</p></div
-          ><div class="data-set"
-            ><p class="data-type">Hashtag</p
-            ><p class="data-value">#チェンソーマン #chainsawman</p></div
-          >
-          <div class="data-set"
-            ><p class="data-type">Genres</p
-            ><p class="data-value"
-              ><span>Action</span><span>Comedy</span><span>Drama</span
-              ><span>Horror</span><span>Supernatural</span></p
-            ></div
-          >
-          <div class="data-set"
-            ><p class="data-type">Romaji</p
-            ><p class="data-value">Chainsaw Man</p></div
-          ><div class="data-set"
-            ><p class="data-type">English</p
-            ><p class="data-value">Chainsaw Man</p></div
-          ><div class="data-set"
-            ><p class="data-type">Native</p
-            ><p class="data-value">チェンソーマン</p></div
-          ><div class="data-set"
-            ><p class="data-type">Synonyms</p
-            ><p class="data-value">CSM, رجل المنشار, 链锯人</p></div
-          ><div class="data-set"
-            ><p class="data-type">Studio</p><p class="data-value">MAPPA</p></div
-          ><div class="data-set"
-            ><p class="data-type">Producers</p
-            ><p class="data-value">Shueisha</p></div
-          >
-          </div
-        > -->
       </section>
     </main>
     <p id="w"></p>

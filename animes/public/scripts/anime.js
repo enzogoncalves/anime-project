@@ -1,22 +1,15 @@
 import {
-  createAnime
+  createAnimeScreen
 } from "./screens.js";
 
 import { getAnime, handleResponse, handleError } from "./api_requests.js";
 
 function changeIcon(btn) {
-  const btnImg = String(btn.children[0].getAttribute('src'))
-
-  if(btnImg.includes('-o')) {
-    btn.children[0].setAttribute('src', btnImg.replace('-o', ''))
-  } else {
-    btn.children[0].setAttribute('src', `${btnImg.replace('.svg', '')}-o.svg`)
-  }
+  // btn.children[0].classList.toggle('svg-solid--fa')
 }
 
 function handleData(data) {
-  console.log(data.data.Media)
-  createAnime(data.data.Media)
+  createAnimeScreen(data.data.Media)
 }
 
 function showAnime(id) {
@@ -40,7 +33,7 @@ btns_functions.forEach((btn) => {
   const btnType = btn.getAttribute("data-type")
 
   btn.addEventListener('click', () => {
-    const animeId = btn.parentElement.parentElement.parentElement.parentElement.getAttribute('id')
+    let animeId = document.getElementsByClassName('anime-container')[0].getAttribute('id')
 
     const id = {
       id: Number(animeId)
@@ -66,7 +59,7 @@ btns_functions.forEach((btn) => {
 })
 
 function animeResponse(response, btn) {
-  console.log(response)
+  console.log(response.data)
   changeIcon(btn)
 }
 
