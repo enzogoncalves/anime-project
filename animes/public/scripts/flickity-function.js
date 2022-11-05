@@ -6,7 +6,12 @@ export default function carousel() {
       cellAlign: "left",
       contain: true,
       pageDots: false,
-      imagesLoaded: true
+      imagesLoaded: true,
+      autoPlay: true,
+      freeScroll: true,
     });
+
+    flkty.on('dragStart', () => flkty.slider.style.pointerEvents = 'none');
+    flkty.on('dragEnd', () => flkty.slider.style.pointerEvents = 'auto');
   });
 }
