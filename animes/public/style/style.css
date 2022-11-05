@@ -16,6 +16,8 @@
   --white: #F7F5F5;
   --font-pattern: 'Montserrat', sans-serif;
   --grey: #797c85;
+  --screen-background: var(--grey);
+  --screen-color: var(--white);
 }
 
 @font-face {
@@ -101,8 +103,7 @@ nav.active ul li a:hover {
   height: 200px;
   width: 100%;
   gap: 1rem;
-  margin-top: 1rem;
-  background-color: #444;
+  background-color: var(--screen-background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,8 +111,9 @@ nav.active ul li a:hover {
   ;
 }
 
-.loading p {
+.loading, .error-screen, .nonAnimeFound p {
   font-weight: 500;
+  color: var(--screen-color);
 }
 
 .loading img {

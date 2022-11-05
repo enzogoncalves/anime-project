@@ -1,6 +1,16 @@
-import { getAnimeById, handleResponse, handleError } from './api_requests.js'
+import { getAnimeById, handleResponse } from './api_requests.js'
 
-import { createAnimeList } from './screens.js'
+import { createAnimeList, createErrorScreen, createLoadingScreen, createNonAnimeFoundScreen } from './screens.js'
+
+const loadingScreen = createLoadingScreen();
+
+const section = document.querySelector('section')
+section.append(loadingScreen);
+
+function handleError(err) {
+  console.log(err)
+  section.append(createErrorScreen());
+}
 
 let list = document.querySelector('section')
 list = list.getAttribute('id')
@@ -21,27 +31,32 @@ listTitle.textContent = title
 axios(`http://localhost:5500/animes/${list}`, {
   method: 'GET'
 }).then(response => getAnime(response.data))
-.catch(err => console.log(err))
+  .catch(err => handleError(err))
+  .finally(() => {
+    loadingScreen.remove();
+  })
 
 function getAnime(animes) {
-  console.log(animes)
-  animes.forEach(anime => {
-    const {url, options } =  getAnimeById(anime)
+  if(animes.length == 0) {
+    section.append(createNonAnimeFoundScreen())
+  } else {
+    animes.forEach(anime => {
+      const {url, options } =  getAnimeById(anime)
     
-    fetch(url, options)
-    .then(response => handleResponse(response))
-    .then(data => {
-      const media = data.data.Media;
-      console.log(media)
-
-      createAnimeList(
-      media.id,
-      media.coverImage.large,
-      media.title.romaji,
-      media.episodes,
-      false
-      )}
-    )
-    .catch(err => console.log(err))
-  })
+      fetch(url, options)
+      .then(response => handleResponse(response))
+      .then(data => {
+        const media = data.data.Media;
+      
+        createAnimeList(
+        media.id,
+        media.coverImage.large,
+        media.title.romaji,
+        media.episodes,
+        false
+        )
+      })
+      .catch(err => console.error(err))
+    })
+  }
 }

@@ -5,13 +5,7 @@ function createLoadingScreen() {
   let loadingDiv = document.createElement("div");
   loadingDiv.classList.add("loading");
 
-  const img = document.createElement("img");
-  img.setAttribute("src", "/icons/spinner.svg");
-
-  const p = document.createElement("p");
-  p.textContent = "carregando...";
-
-  loadingDiv.append(img, p);
+  loadingDiv.innerHTML = `<img src="/icons/spinner.svg"><p>carregando...</p>`
 
   return loadingDiv;
 }
@@ -20,13 +14,7 @@ function createErrorScreen() {
   let errorScreen = document.createElement("div");
   errorScreen.classList.add("error-screen");
 
-  const img = document.createElement("img");
-  img.setAttribute("src", "/img/undraw_server_down_s-4-lk.svg");
-
-  const p = document.createElement("p");
-  p.textContent = "Não conseguimos conectar ao servidor :(";
-
-  errorScreen.append(img, p);
+  errorScreen.innerHTML = `<img src="/img/undraw_server_down_s-4-lk.svg"><p>Não conseguimos conectar ao servidor :(</p>`
 
   return errorScreen;
 }
@@ -35,17 +23,7 @@ function createNonAnimeFoundScreen() {
   let NonAnimeFoundScreen = document.createElement("div");
   NonAnimeFoundScreen.classList.add("nonAnimeFound");
 
-  const time = document.createElement("time");
-  time.setAttribute("href", "#");
-  time.textContent = "Clique aqui para adicionar!";
-  time.style.color = "#FF6D00";
-
-  const p = document.createElement("p");
-  p.textContent = "Nenhum anime encontrado. ";
-
-  p.appendChild(time);
-
-  NonAnimeFoundScreen.appendChild(p);
+  NonAnimeFoundScreen.innerHTML = `<p>Nenhum anime encontrado. <a href="/animes" style="color:var(--light-blue)">Clique aqui para adicionar</a></p>`
 
   return NonAnimeFoundScreen;
 }
@@ -53,46 +31,27 @@ function createNonAnimeFoundScreen() {
 const createAnimeList = (
   animeId,
   animeImg = "",
-  animeTile = "",
-  animeEp = "0",
+  animeTitle = "",
+  animeEp = 0,
   initialPage = true,
   parentDiv = 0
 ) => {
   const animeScreen = document.createElement("div");
   animeScreen.setAttribute("id", animeId);
-
+  
   if(initialPage) {
     animeScreen.classList.add("anime", "carousel-cell");
   } else {
     animeScreen.classList.add("anime");
   }
 
-  const div = document.createElement("div");
-  div.classList.add("anime-cover");
-
-  const animeImgElement = document.createElement("img");
-  animeImgElement.setAttribute("src", animeImg);
-  animeImgElement.setAttribute("alt", "anime image");
-
-  if (animeEp) {
-    var animeEpElement = document.createElement("span");
-    animeEpElement.classList.add("episodes");
-    animeEp == 1
-      ? (animeEpElement.textContent = animeEp + " episode")
-      : (animeEpElement.textContent = animeEp + " episodes");
-  }
-
-  const animeTitleElement = document.createElement("p");
-  animeTitleElement.classList.add("anime-title");
-  animeTitleElement.textContent = animeTile;
-
-  div.appendChild(animeImgElement);
-
-  if (animeEp) {
-    div.appendChild(animeEpElement);
-  }
-
-  animeScreen.append(div, animeTitleElement);
+  animeScreen.innerHTML = `
+    <div class="anime-cover">
+      <img src="${animeImg}" alt="anime cover">
+      ${animeEp ? `<span class="episodes">${animeEp == 1 ? `${animeEp} episode` : `${animeEp} episodes`}</span>` : ``}
+    </div>
+    <p class="anime-title">${animeTitle}</p>
+  `
 
   if (parentDiv == 1) {
     trendingAnimes.appendChild(animeScreen);

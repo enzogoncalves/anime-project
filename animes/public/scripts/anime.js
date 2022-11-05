@@ -59,7 +59,6 @@ btns_functions.forEach((btn) => {
 })
 
 function animeResponse(response, btn) {
-  console.log(response.data)
   changeIcon(btn)
 }
 
