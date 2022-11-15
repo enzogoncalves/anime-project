@@ -1,3 +1,5 @@
+const { initializeApp }= require("firebase/app")
+const { getDatabase, ref, child, get, set } = require('firebase/database')
 const express = require('express')
 const cors = require('cors')
 
@@ -7,82 +9,111 @@ app.use(cors())
 
 app.use(express.json())
 
-
-let animes = {
-  likes: [],
-  favorites: [],
-  myList: []
-};
-
-app.use(express.json())
-
 app.listen(5500, () => {
   console.log('Rodando de boa na porta 5500')
 })
 
+const firebaseConfig = {
+  databaseURL: "https://anime-a1d1-default-rtdb.firebaseio.com/",
+};
+
+const fireApp = initializeApp(firebaseConfig);
+
+async function getAnimes(list) {
+  const db = getDatabase(fireApp)
+  const dbRef = ref(db);
+  const response = await get(child(dbRef, `animes/${list}/ids`))
+  return response;
+}
+
+async function addAnime(list, id) {
+  try {
+    const animeList = await getAnimes(list)
+      const db = getDatabase(fireApp)
+      if(animeList.exists()) {
+        const ids = animeList.val();
+        ids.push(id)
+        
+        set(ref(db, `animes/${list}`), {
+          ids
+        })
+        return "adicionado com sucesso"
+      } else {
+        set(ref(db, `animes/${list}`), {
+          ids: [id]
+        })
+        return "adicionado com sucesso"
+      }
+  }
+  catch (err) {
+    return 'erro no bando de dados'
+  }
+}
+
+async function removeAnime(list, id) {
+  try {
+    const animeList = await getAnimes(list)
+      const db = getDatabase(fireApp)
+      if(animeList.exists()) {
+        let ids = animeList.val();
+        if(ids.includes(id)) {
+          ids = ids.filter(anime => {
+            return anime != id
+          })
+          
+          set(ref(db, `animes/${list}`), {
+          ids
+        })
+        return "Removido com sucesso do nosso bando de dados"
+      } else {
+        return "Este id não está na lista"
+      }
+    } else {
+      return "Esta lista não existe"
+    }
+  } catch(err)
+  {
+    return err;
+  }
+}
+
 app.get('/animes/', (req, res) => {
-  res.jsonp(animes)
+  const db = getDatabase(fireApp)
+  const dbRef = ref(db);
+  get(child(dbRef, `animes/`))
+  .then(animes => res.json(animes))
+  .catch(err => res.json(err))
 })
 
 // ----------- GET -----------
-app.get('/animes/likes', (req, res) => {
-  res.jsonp(animes.likes)
-})
-
-app.get('/animes/favorites', (req, res) => {
-  res.jsonp(animes.favorites)
-})
-
-app.get('/animes/my-list', (req, res) => {
-  res.jsonp(animes.myList)
+app.get('/animes/:list', (req, res) => {
+  getAnimes(req.params.list)
+  .then(animes => res.jsonp(animes))
+  .catch(err => res.json(err))
 })
 
 
-// ----------- PUT -----------
-
-app.route('/animes/add/likes/').post((req, res) => {
-  animes.likes.push(req.body.id)
-  res.json("adicionado com sucesso na lista de curtidos")
+// ----------- POST -----------
+app.post('/animes/add/', (req, res) => {
+  addAnime(req.body.list, req.body.id)
+  .then(response => res.json(response))
+  .catch(err => res.error(err))
 })
 
-app.post('/animes/add/favorites/', (req, res) => {
-  animes.favorites.push(req.body.id)
-  res.json("adicionado com sucesso na lista de favoritos")
-})
-
-app.post('/animes/add/my-list/', (req, res) => {
-  animes.myList.push(req.body.id)
-  res.json("adicionado com sucesso na sua lista")
-})
 
 // ----------- DELETE -----------
+// app.delete('/animes/delete/', (req, res) => {
+//   animes = {
+//     likes: [],
+//     favorites: [],
+//     myList: []
+//   }
+//   res.json("tudo deletado")
+// })
+
 app.delete('/animes/delete/', (req, res) => {
-  animes = {
-    likes: [],
-    favorites: [],
-    myList: []
-  }
-  res.json("tudo deletado")
-})
-
-app.delete('/animes/delete/likes/:id', (req, res) => {
-  animes.likes = animes.likes.filter((item) => {
-    return item != req.params.id
-  })
-  res.json("deletado com sucesso dos seus curtidos")
-})
-
-app.delete('/animes/delete/favorites/:id', (req, res) => {
-  animes.favorites = animes.favorites.filter((item) => {
-    return item != req.params.id
-  })
-  res.json("deletado com sucesso dos seus favoritos")
-})
-
-app.delete('/animes/delete/my-list/:id', (req, res) => {
-  animes.myList = animes.myList.filter((item) => {
-    return item != req.params.id
-  })
-  res.json("deletado com sucesso da sua lista")
+  removeAnime(req.body.list, req.body.id)
+  .then(response => res.json(response))
+  .catch(err => res.error(err))
 })
 
