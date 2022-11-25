@@ -29,7 +29,7 @@ listTitle.textContent = title
 
 
 axios(`http://localhost:5500/animes/${list}`, {
-  method: 'GET'
+  method: 'GET',
 }).then(response => getAnime(response.data))
   .catch(err => handleError(err))
   .finally(() => {
@@ -37,7 +37,7 @@ axios(`http://localhost:5500/animes/${list}`, {
   })
 
 function getAnime(animes) {
-  if(animes.length == 0) {
+  if(!animes) {
     section.append(createNonAnimeFoundScreen())
   } else {
     animes.forEach(anime => {

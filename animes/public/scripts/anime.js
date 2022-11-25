@@ -33,36 +33,48 @@ btns_functions.forEach((btn) => {
   const btnType = btn.getAttribute("data-type")
 
   btn.addEventListener('click', () => {
-    let animeId = document.getElementsByClassName('anime-container')[0].getAttribute('id')
+    let animeId = Number(document.getElementsByClassName('anime-container')[0].getAttribute('id'))
 
-    const id = {
-      id: Number(animeId)
+    const body =    {
+      "list": btnType,
+      "id": animeId
     }
     const btnFunction = btn.getAttribute("data-function")
 
     if(btnFunction == "add") {
-      axios.post(`http://localhost:5500/animes/${btnFunction}/${btnType}/`, id)
+      axios.post(`http://localhost:5500/animes/add/`, body)
       .then(response => animeResponse(response, btn))
-      .catch(err => animeErr(err))
+      .catch(err => animeErr(err.message))
     } else if (btnFunction == "delete") {
-      axios.delete(`http://localhost:5500/animes/delete/${btnType}/${id.id}`)
+      axios.delete(`http://localhost:5500/animes/delete/`, body)
       .then(response => animeResponse(response, btn))
-      .catch(err => animeErr(err))
+      .catch(err => animeErr(err.message))
     }
-    
-    if(btnFunction == "add") {
-      btn.setAttribute("data-function", "delete")
-    } else {
-      btn.setAttribute("data-function", "add")
-    }
+
+    console.log(btnFunction, body, btnType)
   })
 })
 
 function animeResponse(response, btn) {
   changeIcon(btn)
+
+  const btnFunction = btn.getAttribute("data-function")
+
+  if(btnFunction == "add") {
+    btn.setAttribute("data-function", "delete")
+  } else {
+    btn.setAttribute("data-function", "add")
+  }
+
+  console.log(response)
 }
 
 function animeErr(err) {
   alert('Não foi possível conectar ao servidor')
+  console.log(err)
 }
 
+const bod = {"list": "likes", "id": 21}
+axios.delete(`http://localhost:5500/animes/delete/`, bod)
+      .then(response => console.log(response))
+      .catch(err => console.error(err))
