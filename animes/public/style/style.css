@@ -18,6 +18,8 @@
   --grey: #797c85;
   --screen-background: var(--grey);
   --screen-color: var(--white);
+  --header-height: 70px;
+  --max-width: 1200px;
 }
 
 @font-face {
@@ -31,22 +33,32 @@
   box-sizing: border-box;
 }
 
+.max-width {
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
 body {
   background-color: var(--dark-blue);
   font-family: var(--font-pattern);
 }
 
 .container {
+  margin-top: 1rem;
   padding-inline: 1rem;
 }
 
 header {
-  height: 70px;
+  height: var(--header-height);
+  border-bottom: 1px solid rgb(104, 104, 104);
+}
+
+header div{
+  height: var(--header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-inline: 1rem;
-  border-bottom: 1px solid rgb(104, 104, 104);
   position: relative;
 }
 
@@ -107,8 +119,7 @@ nav.active ul li a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-inline: 1.5rem
-  ;
+  padding-inline: 1.5rem;
 }
 
 .loading, .error-screen, .nonAnimeFound p {

@@ -296,14 +296,11 @@ img.anime-cover {
   .details .data-set .data-value span:not(:last-child)::after {
     content: "";
   }
-
-  /* .rankings {
-    margin-bottom: 1.5rem;
-  } */
 }
 
-/* @media (min-width: 1000px) {
-  .anime-intro {
-    max-width: 1100px;
+@media (min-width: 1350px) {
+  .anime-container {
+    margin-inline: auto;
+    padding-right: 0;
   }
-}  */
+} 

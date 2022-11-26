@@ -33,23 +33,25 @@
   </head>
   <body>
     <header>
-      <h1 id="logo">Animes</h1>
-      <button
-        class="fa-solid fa-bars menu-toggle"
-        role="button"
-        onclick="openMenu(this)"
-      ></button>
-      <nav>
-        <ul>
-          <li><a href="/animes">Home</a></li>
-          <li><a href="/animes/my-list">My List</a></li>
-          <li><a href="/animes/favorites">Favorites</a></li>
-          <li><a href="/animes/likes">Liked</a></li>
-        </ul>
-      </nav>
+      <div class="max-width">
+        <h1 id="logo">Animes</h1>
+        <button
+          class="fa-solid fa-bars menu-toggle"
+          role="button"
+          onclick="openMenu(this)"
+        ></button>
+        <nav>
+          <ul>
+            <li><a href="/animes">Home</a></li>
+            <li><a href="/animes/my-list">My List</a></li>
+            <li><a href="/animes/favorites">Favorites</a></li>
+            <li><a href="/animes/likes">Liked</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
-      <section id="<%= id %>" class="anime-container">
+      <section id="<%= id %>" class="anime-container max-width">
         <div class="options">
           <button class="btn-functions" data-type="likes" data-function="add"
             ><i class="fa-regular fa-heart"></i
