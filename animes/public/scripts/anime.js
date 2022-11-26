@@ -33,25 +33,27 @@ btns_functions.forEach((btn) => {
   const btnType = btn.getAttribute("data-type")
 
   btn.addEventListener('click', () => {
-    let animeId = Number(document.getElementsByClassName('anime-container')[0].getAttribute('id'))
+    const animeId = Number(document.getElementsByClassName('anime-container')[0].getAttribute('id'))
 
     const body =    {
       "list": btnType,
       "id": animeId
     }
+
     const btnFunction = btn.getAttribute("data-function")
 
     if(btnFunction == "add") {
       axios.post(`http://localhost:5500/animes/add/`, body)
       .then(response => animeResponse(response, btn))
       .catch(err => animeErr(err.message))
-    } else if (btnFunction == "delete") {
-      axios.delete(`http://localhost:5500/animes/delete/`, body)
+    } 
+    
+    else if (btnFunction == "delete") {
+      console.log(JSON.stringify(body));
+      axios.delete(`http://localhost:5500/animes/delete/`, {data: body})
       .then(response => animeResponse(response, btn))
       .catch(err => animeErr(err.message))
     }
-
-    console.log(btnFunction, body, btnType)
   })
 })
 
@@ -74,7 +76,7 @@ function animeErr(err) {
   console.log(err)
 }
 
-const bod = {"list": "likes", "id": 21}
-axios.delete(`http://localhost:5500/animes/delete/`, bod)
-      .then(response => console.log(response))
-      .catch(err => console.error(err))
+// const bod = {"list": "likes", "id": 21}
+// axios.delete(`http://localhost:5500/animes/delete/`, bod)
+//       .then(response => console.log(response))
+//       .catch(err => console.error(err))

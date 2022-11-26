@@ -56,7 +56,7 @@ async function removeAnime(list, id) {
       const db = getDatabase(fireApp)
       console.log(animeList.exists(), animeList.val())
       if(animeList.exists()) {
-        const ids = animeList.val();
+        let ids = animeList.val();
         if(ids.includes(id)) {
           ids = ids.filter(anime => {
             return anime != id
@@ -66,14 +66,14 @@ async function removeAnime(list, id) {
           ids: ids
         })
         return "Removido com sucesso do nosso banco de dados"
-      } else { 
-        return "Este id não está na lista"
-      }
-    } else {
+        } else { 
+          return "Este id não está na lista"
+        }
+      } else {
       return "Esta lista não existe"
     }
   } catch(err) {
-    return err;
+    return "erro" + err;
   }
 }
 
@@ -112,6 +112,7 @@ app.post('/animes/add/', (req, res) => {
 // })
 
 app.delete('/animes/delete/', (req, res) => {
+  console.log(req.body.list, req.body.id)
   removeAnime(req.body.list, req.body.id)
   .then(response => res.json(response))
   .catch(err => res.errored(err))
