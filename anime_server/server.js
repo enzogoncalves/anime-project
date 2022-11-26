@@ -54,7 +54,6 @@ async function removeAnime(list, id) {
   try {
     const animeList = await getAnimes(list)
       const db = getDatabase(fireApp)
-      console.log(animeList.exists(), animeList.val())
       if(animeList.exists()) {
         let ids = animeList.val();
         if(ids.includes(id)) {
@@ -112,7 +111,6 @@ app.post('/animes/add/', (req, res) => {
 // })
 
 app.delete('/animes/delete/', (req, res) => {
-  console.log(req.body.list, req.body.id)
   removeAnime(req.body.list, req.body.id)
   .then(response => res.json(response))
   .catch(err => res.errored(err))

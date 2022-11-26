@@ -46,6 +46,7 @@
 .options .btn-functions {
   cursor: pointer;
   padding: .5rem .75rem;
+  height: 2.5rem;
   border-radius: 6px;
   border: 1px solid #222;
   font-weight: 800;
@@ -56,8 +57,10 @@
   justify-content: space-around;
   gap: .5rem;
   align-self: baseline;
-  font-size: 1.25rem;
   flex-grow: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.75rem;
 }
 
 .options button:hover {

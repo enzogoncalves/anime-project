@@ -4,8 +4,27 @@ import {
 
 import { getAnime, handleResponse, handleError } from "./api_requests.js";
 
+function changeIconFunction(btn) {
+  const btnFunction = btn.getAttribute("data-function")
+
+  if(btnFunction == "add") {
+    btn.setAttribute("data-function", "delete")
+  } else {
+    btn.setAttribute("data-function", "add")
+  }
+
+  changeIcon(btn)
+}
+
 function changeIcon(btn) {
-  // btn.children[0].classList.toggle('svg-solid--fa')
+  const btnType = btn.getAttribute("data-type");
+  const btnFunction = btn.getAttribute("data-function")
+
+  if(btnFunction == "add") {
+    btn.style.backgroundImage = `url(../icons/${btnType}.svg)`
+  } else if(btnFunction == "delete") {
+    btn.style.backgroundImage = `url(../icons/${btnType}-o.svg)`
+  }
 }
 
 function handleData(data) {
@@ -24,8 +43,8 @@ function showAnime(id) {
     .catch(handleError)
 }
 
-const id = document.querySelector('.anime-container').getAttribute('id').replace('#', '')
-showAnime(id);
+const animeId = Number(document.getElementsByClassName('anime-container')[0].getAttribute('id'))
+showAnime(animeId);
 
 const btns_functions = document.querySelectorAll('.btn-functions');
 
@@ -49,7 +68,6 @@ btns_functions.forEach((btn) => {
     } 
     
     else if (btnFunction == "delete") {
-      console.log(JSON.stringify(body));
       axios.delete(`http://localhost:5500/animes/delete/`, {data: body})
       .then(response => animeResponse(response, btn))
       .catch(err => animeErr(err.message))
@@ -58,17 +76,9 @@ btns_functions.forEach((btn) => {
 })
 
 function animeResponse(response, btn) {
-  changeIcon(btn)
+  changeIconFunction(btn)
 
-  const btnFunction = btn.getAttribute("data-function")
-
-  if(btnFunction == "add") {
-    btn.setAttribute("data-function", "delete")
-  } else {
-    btn.setAttribute("data-function", "add")
-  }
-
-  console.log(response)
+  console.log(response.data)
 }
 
 function animeErr(err) {
@@ -76,7 +86,26 @@ function animeErr(err) {
   console.log(err)
 }
 
-// const bod = {"list": "likes", "id": 21}
-// axios.delete(`http://localhost:5500/animes/delete/`, bod)
-//       .then(response => console.log(response))
-//       .catch(err => console.error(err))
+axios.get('http://localhost:5500/animes')
+.then(res => verifyIfItsInDB(res))
+.catch(err => console.error(err))
+
+function verifyIfItsInDB(res) {
+  const lists = res.data;
+
+  const buttons = document.querySelectorAll('.btn-functions');
+
+  buttons.forEach(btn => {
+    const btnType = btn.getAttribute("data-type")
+
+    for(const list in lists) {
+      for(const id in lists[list].ids) {
+        if(lists[list].ids[id] == animeId && btnType == list) {
+          changeIconFunction(btn)
+        } else {
+          changeIcon(btn)
+        }
+      }
+    }
+  })
+}
