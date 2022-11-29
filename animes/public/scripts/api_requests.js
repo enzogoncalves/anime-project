@@ -102,6 +102,22 @@ function getAnime(id) {
           }
         }
         synonyms
+        relations {
+					nodes {
+            id
+            title {
+              romaji
+            },
+            coverImage {
+							medium
+            }
+            format
+            status
+          }
+          edges {
+						relationType
+          }
+        }
       }
     }
   `

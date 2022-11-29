@@ -82,9 +82,11 @@ const createAnimeScreen = (animeData) => {
     createAnimeTitle(animeData.title.romaji),
     options,
     createAnimeDescription(animeData.description),
-    createAnimeInfo(animeData)
+    createAnimeInfo(animeData),
+    createRelations(animeData.relations)
   );
   mainTag.appendChild(animeContainer)
+
 };
   
 function createAnimeBanner(bannerImage) {
@@ -281,6 +283,35 @@ function createAnimeRanking(rankings) {
   // })
 
   // return rankingsBox;
+}
+
+function createRelations(relations) {
+  const relationsBox = document.createElement('div')
+  relationsBox.classList.add('relations')
+
+  relations.nodes.forEach((relation, index) => {
+    const source = firstLetterUpper(relations.edges[index].relationType)
+    relationsBox.innerHTML += `
+    <div class="relation" id="${relation.id}">
+      <div class="">
+        <img src="${relation.coverImage.medium}">
+        <p>${source}</p>
+        <div>
+          <span>${source}</span>
+          <p>${relation.title.romaji}</p>
+          <p>${firstLetterUpper(relation.format)} · ${firstLetterUpper(relation.status)}</p>
+        </div>
+      </div>
+    </div>
+    `
+  })
+
+  return relationsBox;
+}
+
+function firstLetterUpper(word) {
+  const newW = word.slice(0,1).toUpperCase().concat(word.toLowerCase().slice(1));
+  return newW;
 }
 
 function getTime(time) {

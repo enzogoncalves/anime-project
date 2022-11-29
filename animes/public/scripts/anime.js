@@ -29,6 +29,7 @@ function changeIcon(btn) {
 
 function handleData(data) {
   createAnimeScreen(data.data.Media)
+  console.log(data.data.Media)
 }
 
 function showAnime(id) {
