@@ -1,9 +1,3 @@
-const w = document.querySelector("#w");
-
-window.addEventListener("resize", () => {
-  w.textContent = window.innerWidth;
-});
-
 const nav = document.querySelector("nav");
 
 function openMenu(el) {

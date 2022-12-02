@@ -62,7 +62,7 @@ const createAnimeList = (
   }
 
   animeScreen.addEventListener('click', () => {
-    window.location.href = `anime/${animeId}`
+    window.location.href = `/anime/${animeId}`
   })
 };
 
@@ -293,14 +293,14 @@ function createRelations(relations) {
     const source = firstLetterUpper(relations.edges[index].relationType)
     relationsBox.innerHTML += `
     <div class="relation" id="${relation.id}">
-      <div class="">
+      <div>
         <img src="${relation.coverImage.medium}">
         <p>${source}</p>
-        <div>
+      </div>
+      <div class="hover-relation">
           <span>${source}</span>
           <p>${relation.title.romaji}</p>
           <p>${firstLetterUpper(relation.format)} · ${firstLetterUpper(relation.status)}</p>
-        </div>
       </div>
     </div>
     `

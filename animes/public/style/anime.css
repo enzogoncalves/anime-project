@@ -166,7 +166,7 @@ img.anime-cover {
   cursor: pointer;
 }
 
-.relation > p {
+.relation div:nth-child(1) p {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -178,8 +178,7 @@ img.anime-cover {
   font-weight: bold;
 }
 
-.relation div {
-  content: '';
+.relation .hover-relation {
   position: absolute;
   top: 0;
   left: 100%;
@@ -193,7 +192,7 @@ img.anime-cover {
   transition: all 3s;
 }
 
-.relation:hover div {
+.relation:hover .hover-relation {
   display: block;
   opacity: 1;
   width: 200px;
