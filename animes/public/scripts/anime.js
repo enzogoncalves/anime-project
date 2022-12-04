@@ -1,35 +1,33 @@
-import {
-  createAnimeScreen
-} from "./screens.js";
+import { createAnimeScreen } from "./screens.js";
 
 import { getAnime, handleResponse, handleError } from "./api_requests.js";
 
 function changeIconFunction(btn) {
-  const btnFunction = btn.getAttribute("data-function")
+  const btnFunction = btn.getAttribute("data-function");
 
-  if(btnFunction == "add") {
-    btn.setAttribute("data-function", "delete")
+  if (btnFunction == "add") {
+    btn.setAttribute("data-function", "delete");
   } else {
-    btn.setAttribute("data-function", "add")
+    btn.setAttribute("data-function", "add");
   }
 
-  changeIcon(btn)
+  changeIcon(btn);
 }
 
 function changeIcon(btn) {
   const btnType = btn.getAttribute("data-type");
-  const btnFunction = btn.getAttribute("data-function")
+  const btnFunction = btn.getAttribute("data-function");
 
-  if(btnFunction == "add") {
-    btn.style.backgroundImage = `url(../icons/${btnType}.svg)`
-  } else if(btnFunction == "delete") {
-    btn.style.backgroundImage = `url(../icons/${btnType}-o.svg)`
+  if (btnFunction == "add") {
+    btn.style.backgroundImage = `url(../icons/${btnType}.svg)`;
+  } else if (btnFunction == "delete") {
+    btn.style.backgroundImage = `url(../icons/${btnType}-o.svg)`;
   }
 }
 
 function handleData(data) {
-  createAnimeScreen(data.data.Media)
-  console.log(data.data.Media)
+  createAnimeScreen(data.data.Media);
+  console.log(data.data.Media);
 }
 
 function showAnime(id) {
@@ -41,72 +39,77 @@ function showAnime(id) {
     .then((data) => {
       handleData(data);
     })
-    .catch(handleError)
+    .catch(handleError);
 }
 
-const animeId = Number(document.getElementsByClassName('anime-container')[0].getAttribute('id'))
+const animeId = Number(
+  document.getElementsByClassName("anime")[0].getAttribute("id")
+);
 showAnime(animeId);
 
-const btns_functions = document.querySelectorAll('.btn-functions');
+const btns_functions = document.querySelectorAll(".btn-functions");
 
 btns_functions.forEach((btn) => {
-  const btnType = btn.getAttribute("data-type")
+  const btnType = btn.getAttribute("data-type");
 
-  btn.addEventListener('click', () => {
-    const animeId = Number(document.getElementsByClassName('anime-container')[0].getAttribute('id'))
+  btn.addEventListener("click", () => {
+    const animeId = Number(
+      document.getElementsByClassName("anime")[0].getAttribute("id")
+    );
 
-    const body =    {
-      "list": btnType,
-      "id": animeId
+    const body = {
+      list: btnType,
+      id: animeId,
+    };
+
+    const btnFunction = btn.getAttribute("data-function");
+
+    if (btnFunction == "add") {
+      axios
+        .post(`http://localhost:5500/animes/add/`, body)
+        .then((response) => animeResponse(response, btn))
+        .catch((err) => animeErr(err.message));
+    } else if (btnFunction == "delete") {
+      axios
+        .delete(`http://localhost:5500/animes/delete/`, { data: body })
+        .then((response) => animeResponse(response, btn))
+        .catch((err) => animeErr(err.message));
     }
-
-    const btnFunction = btn.getAttribute("data-function")
-
-    if(btnFunction == "add") {
-      axios.post(`http://localhost:5500/animes/add/`, body)
-      .then(response => animeResponse(response, btn))
-      .catch(err => animeErr(err.message))
-    } 
-    
-    else if (btnFunction == "delete") {
-      axios.delete(`http://localhost:5500/animes/delete/`, {data: body})
-      .then(response => animeResponse(response, btn))
-      .catch(err => animeErr(err.message))
-    }
-  })
-})
+  });
+});
 
 function animeResponse(response, btn) {
-  changeIconFunction(btn)
+  changeIconFunction(btn);
 
-  console.log(response.data)
+  console.log(response.data);
 }
 
 function animeErr(err) {
-  alert('Não foi possível conectar ao servidor')
-  console.log(err)
+  alert("Não foi possível conectar ao servidor");
+  console.log(err);
 }
 
-axios.get('http://localhost:5500/animes')
-.then(res => verifyIfItsInDB(res))
-.catch(err => console.error(err))
+axios
+  .get("http://localhost:5500/animes")
+  .then((res) => verifyIfItsInDB(res))
+  .catch((err) => console.error(err));
 
 function verifyIfItsInDB(res) {
   const lists = res.data;
 
-  const buttons = document.querySelectorAll('.btn-functions');
+  const buttons = document.querySelectorAll(".btn-functions");
 
-  buttons.forEach(btn => {
-    const btnType = btn.getAttribute("data-type")
+  buttons.forEach((btn) => {
+    const btnType = btn.getAttribute("data-type");
 
-    for(const list in lists) {
-      for(const id in lists[list].ids) {
-        if(lists[list].ids[id] == animeId && btnType == list) {
-          changeIconFunction(btn)
+    for (const list in lists) {
+      for (const id in lists[list].ids) {
+        if (lists[list].ids[id] == animeId && btnType == list) {
+          changeIconFunction(btn);
         } else {
-          changeIcon(btn)
+          changeIcon(btn);
         }
       }
     }
-  })
+  });
 }

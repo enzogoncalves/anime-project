@@ -118,6 +118,31 @@ function getAnime(id) {
 						relationType
           }
         }
+        characters(page:1, perPage: 6, sort: RELEVANCE){
+          edges {
+            id
+            role
+            voiceActors(sort: RELEVANCE) {
+              id
+              name {
+                full
+              }
+              image {
+                large
+              }
+              languageV2
+            }
+            node {
+              id
+              name {
+                full
+              }
+              image {
+                large
+              }
+            }
+          }
+        }
       }
     }
   `

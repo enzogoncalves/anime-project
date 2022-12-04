@@ -7,12 +7,14 @@
 }
 
 :root {
+  --hue: 220;
+  --light-hue: calc(var(--hue) - 19);
   --orange: #f77f00;
   --dark: #080A13;
-  --dark-blue: #1f2531;
-  --dark-blue-transparent: #1f2632af;
-  --light-blue: #4dbffd;
-  --light-blue-shadow: #4dbffd56;
+  --dark-blue: hsl(var(--hue), 23%, 16%);
+  --dark-blue-transparent: hsla(var(--hue), 23%, 16%, 0.7);
+  --light-blue: hsl(var(--light-hue), 98%, 65%);
+  --light-blue-shadow: hsla(var(--light-hue), 98%, 65%, 0.4);
   --white: #F7F5F5;
   --font-pattern: 'Montserrat', sans-serif;
   --grey: #797c85;
