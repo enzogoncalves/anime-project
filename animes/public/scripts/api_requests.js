@@ -143,6 +143,20 @@ function getAnime(id) {
             }
           }
         }
+        staff (sort:RELEVANCE, page: 1, perPage: 4){
+          edges {
+            role
+            node {
+              id
+              name {
+                full
+              }
+              image {
+                medium
+              }
+            }
+          }
+        }
       }
     }
   `

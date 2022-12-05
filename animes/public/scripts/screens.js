@@ -93,6 +93,10 @@ const createAnimeScreen = (animeData) => {
     createContainer("Characters", createAnimeCharacters(animeData.characters))
   );
 
+  anime_data_containers.appendChild(
+    createContainer("Staff", createAnimeStaff(animeData.staff.edges))
+  );
+
   main.appendChild(createAnimeBanner(animeData.bannerImage));
   animeContainer.append(
     createAnimeCover(animeData.coverImage.large),
@@ -353,6 +357,23 @@ function createAnimeCharacters(characters) {
   });
 
   return charactersBox;
+}
+
+function createAnimeStaff(staffs) {
+  const staffsBox = document.createElement("div");
+  staffsBox.classList.add("staffs");
+
+  staffs.forEach(staff => {
+    staffsBox.innerHTML += `
+      <div class="staff">
+        <img src="${staff.node.image.medium}">
+        <p>${staff.node.name.full}</p>
+        <p>${staff.role}</p>
+      </div>
+    `
+  })
+
+  return staffsBox;
 }
 
 function createContainer(data_container_title, containers) {
