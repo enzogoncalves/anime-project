@@ -12,12 +12,13 @@
   --orange: #f77f00;
   --dark: #080A13;
   --dark-blue: hsl(var(--hue), 23%, 16%);
-  --dark-blue-transparent: hsla(var(--hue), 23%, 16%, 0.7);
+  --dark-blue-transparent: hsla(var(--hue), 23%, 16%, 0.8);
   --light-blue: hsl(var(--light-hue), 98%, 65%);
   --light-blue-shadow: hsla(var(--light-hue), 98%, 65%, 0.4);
   --white: #F7F5F5;
   --font-pattern: 'Montserrat', sans-serif;
   --grey: #373a42;
+  --light-grey: #e4dada;
   --screen-background: var(--grey);
   --screen-color: var(--white);
   --header-height: 70px;

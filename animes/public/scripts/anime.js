@@ -27,7 +27,6 @@ function changeIcon(btn) {
 
 function handleData(data) {
   createAnimeScreen(data.data.Media);
-  console.log(data.data.Media);
 }
 
 function showAnime(id) {
@@ -95,21 +94,26 @@ axios
   .catch((err) => console.error(err));
 
 function verifyIfItsInDB(res) {
-  const lists = res.data;
+  const lists = res.data != null ? res.data : [];  
+  console.log(lists)
 
   const buttons = document.querySelectorAll(".btn-functions");
 
   buttons.forEach((btn) => {
     const btnType = btn.getAttribute("data-type");
 
-    for (const list in lists) {
-      for (const id in lists[list].ids) {
-        if (lists[list].ids[id] == animeId && btnType == list) {
-          changeIconFunction(btn);
-        } else {
-          changeIcon(btn);
+    if(lists.length > 0) {
+      for (const list in lists) {
+        for (const id in lists[list].ids) {
+          if (lists[list].ids[id] == animeId && btnType == list) {
+            changeIconFunction(btn);
+          } else {
+            changeIcon(btn);
+          }
         }
       }
+    } else {
+      changeIcon(btn);
     }
-  });
+  })
 }

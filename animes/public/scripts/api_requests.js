@@ -53,7 +53,8 @@ function getAnime(id) {
           native
         }
         coverImage {
-          large
+          large,
+          color
         }
         bannerImage
         episodes

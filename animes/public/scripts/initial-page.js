@@ -33,3 +33,5 @@ function showAnimes(sort, parentEl) {
 }
 
 showAnimes("TRENDING_DESC", 1);
+showAnimes("FAVOURITES_DESC", 2);
+showAnimes("POPULARITY_DESC", 3);

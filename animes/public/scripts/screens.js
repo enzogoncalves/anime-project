@@ -1,5 +1,6 @@
 const trendingAnimes = document.querySelector("#trend");
-const popularityAnimes = document.querySelector("#popular");
+const favouritesAnimes = document.querySelector("#favourites");
+const popularityAnimes = document.querySelector("#popularity");
 
 function createLoadingScreen() {
   let loadingDiv = document.createElement("div");
@@ -62,6 +63,8 @@ const createAnimeList = (
   if (parentDiv == 1) {
     trendingAnimes.appendChild(animeScreen);
   } else if (parentDiv == 2) {
+    favouritesAnimes.appendChild(animeScreen);
+  } else if (parentDiv == 3) {
     popularityAnimes.appendChild(animeScreen);
   } else {
     document.querySelector("section").appendChild(animeScreen);
@@ -73,6 +76,7 @@ const createAnimeList = (
 };
 
 const createAnimeScreen = (animeData) => {
+  console.log(animeData)
   const animeContainer = document.querySelector(".anime");
 
   const options = document.querySelector(".options");
@@ -82,27 +86,28 @@ const createAnimeScreen = (animeData) => {
 
   const main = document.querySelector("main");
 
+  const anime_title_description = document.createElement('div')
+  anime_title_description.classList.add('anime-title-description')
+  anime_title_description.append(
+    createAnimeTitle(animeData.title.romaji),
+    createAnimeDescription(animeData.description),
+  );
+
   const anime_data_containers = document.createElement("section");
   anime_data_containers.classList.add("anime-data-containers");
 
-  anime_data_containers.appendChild(
-    createContainer("Relations", createRelations(animeData.relations))
-  );
-
-  anime_data_containers.appendChild(
-    createContainer("Characters", createAnimeCharacters(animeData.characters))
-  );
-
-  anime_data_containers.appendChild(
-    createContainer("Staff", createAnimeStaff(animeData.staff.edges))
-  );
-
-  main.appendChild(createAnimeBanner(animeData.bannerImage));
+  anime_data_containers.append(
+    createContainer("Relations", createRelations(animeData.relations)),
+    createContainer("Characters", createAnimeCharacters(animeData.characters)),
+    createContainer("Staff", createAnimeStaff(animeData.staff.edges)),
+  )
+  if(animeData.bannerImage) {
+    main.appendChild(createAnimeBanner(animeData.bannerImage));
+  }
   animeContainer.append(
-    createAnimeCover(animeData.coverImage.large),
-    createAnimeTitle(animeData.title.romaji),
+    createAnimeCover(animeData.coverImage),
+    anime_title_description,
     options,
-    createAnimeDescription(animeData.description),
     createAnimeInfo(animeData),
     anime_data_containers
   );
@@ -122,7 +127,15 @@ function createAnimeCover(coverImage) {
   const animeCover = document.createElement("img");
   animeCover.classList.add("anime-cover");
   animeCover.setAttribute("alt", "anime cover");
-  animeCover.setAttribute("src", coverImage);
+  animeCover.setAttribute("src", coverImage.large);
+  if(coverImage.color) {
+    console.log(coverImage.color)
+    // animeCover.style.boxShadow = `0px 0px 16px red;`
+    animeCover.setAttribute('style', `box-shadow: 0 0 16px ${coverImage.color}`)
+  } else {
+    animeCover.setAttribute('style', `box-shadow: 0 0 16px var(--light-blue-shadow)`)
+
+  }
 
   return animeCover;
 }
@@ -316,7 +329,7 @@ function createRelations(relations) {
   relations.nodes.forEach((relation, index) => {
     const source = firstLetterUpperCase(relations.edges[index].relationType);
     relationsBox.innerHTML += `
-    <div class="relation" id="${relation.id}">
+    <div class="relation" id="${relation.id}" onclick="window.location.href = '/anime/${relation.id}'">
       <div class="front">
         <img src="${relation.coverImage.medium}">
         <p>${source}</p>
@@ -324,9 +337,7 @@ function createRelations(relations) {
       <div class="hover-relation">
           <span>${source}</span>
           <p>${relation.title.romaji}</p>
-          <p>${firstLetterUpperCase(relation.format)} · ${firstLetterUpperCase(
-      relation.status
-    )}</p>
+          <p>${firstLetterUpperCase(relation.format)} · ${firstLetterUpperCase(relation.status)}</p>
       </div>
     </div>
     `;
@@ -340,7 +351,8 @@ function createAnimeCharacters(characters) {
   charactersBox.classList.add("characters");
 
   characters.edges.forEach((character) => {
-    charactersBox.innerHTML += `
+    if(character.voiceActors.length != 0) {
+      charactersBox.innerHTML += `
       <div class="character-voice_actor">
         <div class="character">
           <img src="${character.node.image.large}">
@@ -353,7 +365,8 @@ function createAnimeCharacters(characters) {
           <p>${character.voiceActors[0].languageV2}</p>
         </div>
       </div>
-    `;
+      `;
+    } 
   });
 
   return charactersBox;
