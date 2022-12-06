@@ -29,6 +29,16 @@ function handleData(data) {
   createAnimeScreen(data.data.Media);
 }
 
+function handleChangeIconError(err) {
+  console.error(err.message)
+
+  const buttons = document.querySelectorAll(".btn-functions");
+
+  buttons.forEach((btn) => {
+    btn.style.backgroundImage = `url(../icons/no-wifi.png)`;
+  })
+}
+
 function showAnime(id) {
   const req = getAnime(id);
   const { url, options } = req;
@@ -79,8 +89,6 @@ btns_functions.forEach((btn) => {
 
 function animeResponse(response, btn) {
   changeIconFunction(btn);
-
-  console.log(response.data);
 }
 
 function animeErr(err) {
@@ -91,29 +99,25 @@ function animeErr(err) {
 axios
   .get("http://localhost:5500/animes")
   .then((res) => verifyIfItsInDB(res))
-  .catch((err) => console.error(err));
+  .catch((err) => handleChangeIconError(err));
 
 function verifyIfItsInDB(res) {
   const lists = res.data != null ? res.data : [];  
-  console.log(lists)
 
   const buttons = document.querySelectorAll(".btn-functions");
 
   buttons.forEach((btn) => {
     const btnType = btn.getAttribute("data-type");
 
-    if(lists.length > 0) {
-      for (const list in lists) {
-        for (const id in lists[list].ids) {
-          if (lists[list].ids[id] == animeId && btnType == list) {
-            changeIconFunction(btn);
-          } else {
-            changeIcon(btn);
-          }
+    for (const list in lists) {
+      for (const id in lists[list].ids) {
+        if (lists[list].ids[id] == animeId && btnType == list) {
+          changeIconFunction(btn);
+        } else {
+          changeIcon(btn);
         }
       }
-    } else {
-      changeIcon(btn);
     }
+  
   })
 }

@@ -135,6 +135,25 @@ nav.active ul li a:hover {
   animation: loading 1.5s infinite ease;
 }
 
+footer {
+  height: 70px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--grey);
+  margin-top: 2rem;
+  gap: .5rem;
+}
+
+footer img {
+  width: 32px;
+  color: white;
+  fill: white;
+  background-color: white;
+  border-radius: 50%;
+}
+
 @keyframes loading {
   0% {
    transform: rotate(0deg);

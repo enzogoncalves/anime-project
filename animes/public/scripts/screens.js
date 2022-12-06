@@ -76,7 +76,6 @@ const createAnimeList = (
 };
 
 const createAnimeScreen = (animeData) => {
-  console.log(animeData)
   const animeContainer = document.querySelector(".anime");
 
   const options = document.querySelector(".options");
@@ -129,8 +128,6 @@ function createAnimeCover(coverImage) {
   animeCover.setAttribute("alt", "anime cover");
   animeCover.setAttribute("src", coverImage.large);
   if(coverImage.color) {
-    console.log(coverImage.color)
-    // animeCover.style.boxShadow = `0px 0px 16px red;`
     animeCover.setAttribute('style', `box-shadow: 0 0 16px ${coverImage.color}`)
   } else {
     animeCover.setAttribute('style', `box-shadow: 0 0 16px var(--light-blue-shadow)`)
