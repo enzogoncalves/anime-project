@@ -41,7 +41,7 @@ function getAnime(animes) {
     section.append(createNonAnimeFoundScreen())
   } else {
     animes.forEach(anime => {
-      const {url, options } =  getAnimeById(anime)
+      const {url, options } =  getAnimeById(anime, true)
     
       fetch(url, options)
       .then(response => handleResponse(response))

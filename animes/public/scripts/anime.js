@@ -1,6 +1,6 @@
 import { createAnimeScreen } from "./screens.js";
 
-import { getAnime, handleResponse, handleError } from "./api_requests.js";
+import { getAnimeById, handleResponse, handleError } from "./api_requests.js";
 
 function changeIconFunction(btn) {
   const btnFunction = btn.getAttribute("data-function");
@@ -40,7 +40,7 @@ function handleChangeIconError(err) {
 }
 
 function showAnime(id) {
-  const req = getAnime(id);
+  const req = getAnimeById(id, false);
   const { url, options } = req;
 
   fetch(url, options)

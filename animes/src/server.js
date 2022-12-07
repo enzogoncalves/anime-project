@@ -14,10 +14,6 @@ app.use(express.urlencoded({extended: true})) // habilitar o uso do ejs no html
 
 app.use(route)
 
-app.get("/animes", (req, res) => {
-  res.render("index");
-});
-
 app.listen(3000, () => {
   console.log("ouvindo porta 3000");
 });

@@ -19,5 +19,5 @@ var tid = setInterval( function () {
     flkty.on('dragStart', () => flkty.slider.style.pointerEvents = 'none');
     flkty.on('dragEnd', () => flkty.slider.style.pointerEvents = 'auto');
   });
-}, 150);
+}, 200);
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Your anime list!" />
     <title>Animes</title>
 
     <!-- FONTS -->
@@ -28,12 +29,12 @@
 
     <!-- JAVASCRIPT -->
     <script src="/scripts/script.js" defer></script>
-    <script type="module" src="/scripts/getAnimes.js"></script>
+    <script type="module" src="/scripts/anime-list.js"></script>
   </head>
   <body>
     <header>
       <div class="max-width">
-        <h1 id="logo">Animes</h1>
+        <a href="/animes" id="logo">ANIMES</a>
         <button
           class="fa-solid fa-bars menu-toggle"
           role="button"
@@ -42,9 +43,9 @@
         <nav>
           <ul>
             <li><a href="/animes">Home</a></li>
-            <li><a href="/animes/my-list">My List</a></li>
-            <li><a href="/animes/favorites">Favorites</a></li>
             <li><a href="/animes/likes">Liked</a></li>
+            <li><a href="/animes/favorites">Favorites</a></li>
+            <li><a href="/animes/my-list">My List</a></li>
           </ul>
         </nav>
       </div>
@@ -54,7 +55,12 @@
       <section id="<%= list %>" data-section="list"></section>
     </main>
     <footer>
-      Enzo Mateus Gonçalves<a href="https://github.com/enzogoncalves"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" /></a> 
+      Enzo Mateus Gonçalves
+      <a href="https://github.com/enzogoncalves" target="_blank">
+        <img
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+        />
+      </a>
     </footer>
   </body>
 </html>

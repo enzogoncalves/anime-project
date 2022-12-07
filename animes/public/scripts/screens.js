@@ -6,7 +6,7 @@ function createLoadingScreen() {
   let loadingDiv = document.createElement("div");
   loadingDiv.classList.add("loading");
 
-  loadingDiv.innerHTML = `<img src="/icons/spinner.svg"><p>carregando...</p>`;
+  loadingDiv.innerHTML = `<img src="/icons/spinner.svg" alt="spinner icon animation"><p>carregando...</p>`;
 
   return loadingDiv;
 }
@@ -15,7 +15,7 @@ function createErrorScreen() {
   let errorScreen = document.createElement("div");
   errorScreen.classList.add("error-screen");
 
-  errorScreen.innerHTML = `<img src="/img/undraw_server_down_s-4-lk.svg"><p>Não conseguimos conectar ao servidor :(</p>`;
+  errorScreen.innerHTML = `<img src="/img/undraw_server_down_s-4-lk.svg" alt="error image"><p>Não conseguimos conectar ao servidor :(</p>`;
 
   return errorScreen;
 }
@@ -95,14 +95,28 @@ const createAnimeScreen = (animeData) => {
   const anime_data_containers = document.createElement("section");
   anime_data_containers.classList.add("anime-data-containers");
 
-  anime_data_containers.append(
-    createContainer("Relations", createRelations(animeData.relations)),
-    createContainer("Characters", createAnimeCharacters(animeData.characters)),
-    createContainer("Staff", createAnimeStaff(animeData.staff.edges)),
-  )
+  if(animeData.relations != null) {
+    anime_data_containers.appendChild(
+      createContainer("Relations", createRelations(animeData.relations))
+    )
+  }
+
+  if(animeData.characters != null) {
+    anime_data_containers.appendChild(
+      createContainer("Characters", createAnimeCharacters(animeData.characters))
+    )
+  }
+
+  if(animeData.staff.edges != null) {
+    anime_data_containers.appendChild(
+      createContainer("Staff", createAnimeStaff(animeData.staff.edges))
+    )
+  }
+
   if(animeData.bannerImage) {
     main.appendChild(createAnimeBanner(animeData.bannerImage));
   }
+
   animeContainer.append(
     createAnimeCover(animeData.coverImage),
     anime_title_description,
@@ -110,6 +124,7 @@ const createAnimeScreen = (animeData) => {
     createAnimeInfo(animeData),
     anime_data_containers
   );
+
   main.appendChild(animeContainer);
 };
 
@@ -184,7 +199,7 @@ function createAnimeInfo(animeData) {
   const details = document.createElement("div");
   details.classList.add("details");
 
-  if (animeData.episodes == null) {
+  if (animeData.episodes == null && animeData.nextAiringEpisode != null) {
     details.appendChild(
       createInfo(
         "Airing",
@@ -193,7 +208,7 @@ function createAnimeInfo(animeData) {
         )}`
       )
     );
-  } else {
+  } else if(animeData.episodes != null) {
     details.appendChild(createInfo("Episodes", animeData.episodes));
   }
 
@@ -262,8 +277,14 @@ function createAnimeInfo(animeData) {
   ];
 
   dataArr.forEach((dataItem) => {
-    if (typeof dataItem.value == "string" || dataItem.value != null) {
-      details.appendChild(createInfo(dataItem.type, dataItem.value));
+    if (dataItem.value != null) {
+      if((typeof dataItem.value == "string" && !dataItem.value.includes('null'))) {
+        details.appendChild(createInfo(dataItem.type, dataItem.value));
+      } else if(typeof dataItem.value == "object") {
+        details.appendChild(createInfo(dataItem.type, dataItem.value));
+      } else if(typeof dataItem.value == 'number') {
+        details.appendChild(createInfo(dataItem.type, dataItem.value));
+      }
     }
   });
 
@@ -277,7 +298,9 @@ function createAnimeInfo(animeData) {
     }
   });
 
-  details.appendChild(createInfo("Producers", producers));
+  if(producers.length > 0) {
+    details.appendChild(createInfo("Producers", producers));
+  }
 
   return details;
 }
@@ -306,19 +329,6 @@ function createInfo(type, value) {
   return dataSet;
 }
 
-function createAnimeRanking(rankings) {
-  // const rankingsBox = document.createElement('div')
-  // rankingsBox.classList.add('rankings')
-  // rankings.forEach((ranking) => {
-  //   const rankingSpan = document.createElement('span')
-  //   rankingSpan.textContent = `#${ranking.rank} ${ranking.context} ${ranking.year == null
-  //     ? ''
-  //     : ranking.year}`
-  //   rankingsBox.appendChild(rankingSpan)
-  // })
-  // return rankingsBox;
-}
-
 function createRelations(relations) {
   const relationsBox = document.createElement("div");
   relationsBox.classList.add("relations");
@@ -328,7 +338,7 @@ function createRelations(relations) {
     relationsBox.innerHTML += `
     <div class="relation" id="${relation.id}" onclick="window.location.href = '/anime/${relation.id}'">
       <div class="front">
-        <img src="${relation.coverImage.medium}">
+        <img src="${relation.coverImage.medium}" alt="anime cover">
         <p>${source}</p>
       </div>
       <div class="hover-relation">
@@ -352,18 +362,28 @@ function createAnimeCharacters(characters) {
       charactersBox.innerHTML += `
       <div class="character-voice_actor">
         <div class="character">
-          <img src="${character.node.image.large}">
+          <img src="${character.node.image.large}" alt="character image">
           <p>${character.node.name.full}</p>
           <p>${firstLetterUpperCase(character.role)}</p>
         </div>
         <div class="voice_actor">
-          <img src="${character.voiceActors[0].image.large}">
+          <img src="${character.voiceActors[0].image.large}" alt="voice actor image">
           <p>${character.voiceActors[0].name.full}</p>
           <p>${character.voiceActors[0].languageV2}</p>
         </div>
       </div>
       `;
-    } 
+    } else if (character.voiceActors.length == 0) {
+      charactersBox.innerHTML += `
+      <div class="character-voice_actor">
+        <div class="character">
+          <img src="${character.node.image.large}" alt="character image">
+          <p>${character.node.name.full}</p>
+          <p>${firstLetterUpperCase(character.role)}</p>
+        </div>
+      </div>
+      `;
+    }
   });
 
   return charactersBox;
@@ -376,7 +396,7 @@ function createAnimeStaff(staffs) {
   staffs.forEach(staff => {
     staffsBox.innerHTML += `
       <div class="staff">
-        <img src="${staff.node.image.medium}">
+        <img src="${staff.node.image.medium}" alt="staff image">
         <p>${staff.node.name.full}</p>
         <p>${staff.role}</p>
       </div>
@@ -389,7 +409,7 @@ function createAnimeStaff(staffs) {
 function createContainer(data_container_title, containers) {
   const data_container = document.createElement("div");
   data_container.classList.add("data-container");
-  data_container.innerHTML = data_container_title;
+  data_container.innerHTML = `<h2>${data_container_title}</h2>`;
   data_container.append(containers);
 
   return data_container;

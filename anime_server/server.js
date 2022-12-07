@@ -76,6 +76,7 @@ async function removeAnime(list, id) {
   }
 }
 
+// ----------- GET -----------
 app.get('/animes/', (req, res) => {
   const db = getDatabase(fireApp)
   const dbRef = ref(db);
@@ -84,13 +85,11 @@ app.get('/animes/', (req, res) => {
   .catch(err => res.json(err))
 })
 
-// ----------- GET -----------
 app.get('/animes/:list', (req, res) => {
   getAnimes(req.params.list)
   .then(animes => res.jsonp(animes.val()))
   .catch(err => res.json(err))
 })
-
 
 // ----------- POST -----------
 app.post('/animes/add/', (req, res) => {
@@ -99,17 +98,7 @@ app.post('/animes/add/', (req, res) => {
   .catch(err => res.errored(err))
 })
 
-
 // ----------- DELETE -----------
-// app.delete('/animes/delete/', (req, res) => {
-//   animes = {
-//     likes: [],
-//     favorites: [],
-//     myList: []
-//   }
-//   res.json("tudo deletado")
-// })
-
 app.delete('/animes/delete/', (req, res) => {
   removeAnime(req.body.list, req.body.id)
   .then(response => res.json(response))

@@ -1,6 +1,6 @@
 .container > h2 {
   margin-bottom: .5rem;
-  color: white;
+  color: var(--white);
   font-size: clamp(1.15rem, 6vw, 1.55rem);
 }
 
@@ -27,8 +27,7 @@
 .anime .anime-cover img {
   transition: .2s;
   display: block;
-  /* width: 100%; */
-  height: clamp(170px, 30vw, 220px);
+  height: clamp(170px, 35vw, 220px);
   object-fit: cover;
 }
 
@@ -64,6 +63,6 @@ section[data-section="list"] {
 }
 
 .list-title {
-  color: white;
+  color: var(--white);
   margin-bottom: 1rem;
 }
