@@ -2,20 +2,7 @@
 
 ## Como iniciar o projeto
 
-Entre na pasta anime_server
-```
-cd anime_server
-```
-
-Instale os pacotes nodejs e inicie a API Rest
-```
-npm install
-npm start
-```
-
-A API Rest é iniciada na porta 5500, mas você pode alterar [neste arquivo](/anime_server/server.js)
-
-Agora para iniciar o servidor web, entre na pasta animes, instale os pacotes nodejs e inicie o servidor
+Para iniciar o servidor web, instale os módulos nodejs e inicie o servidor
 ```
 cd animes
 npm install
@@ -24,7 +11,7 @@ npm start
 
 Agora é só entrar em [http://localhost:3000/animes](http://localhost:3000/animes)
 
-O servidor web é iniciado na porta 3000, mas você pode alterar [neste arquivo](/animes/src/server.js)
+O servidor web é iniciado na porta 3000, mas você pode alterar [neste arquivo](/src/server.js)
 
 ## Linguagens e Tecnologias Utilizadas
 <div style="display: inline-block"><br>
