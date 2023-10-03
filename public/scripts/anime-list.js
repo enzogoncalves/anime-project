@@ -1,3 +1,6 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 import { getAnimeById, handleResponse } from './api_requests.js'
 
 import { createAnimeList, createErrorScreen, createLoadingScreen, createNonAnimeFoundScreen } from './screens.js'
