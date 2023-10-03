@@ -4,7 +4,10 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon ."
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "keywords": [],
   "author": "",
