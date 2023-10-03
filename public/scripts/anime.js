@@ -75,12 +75,12 @@ btns_functions.forEach((btn) => {
 
     if (btnFunction == "add") {
       axios
-        .post(`http://localhost:5500/animes/add/`, body)
+        .post(`http://localhost:3000/api/animes/add/`, body)
         .then((response) => animeResponse(response, btn))
         .catch((err) => animeErr(err.message));
     } else if (btnFunction == "delete") {
       axios
-        .delete(`http://localhost:5500/animes/delete/`, { data: body })
+        .delete(`http://localhost:3000/api/animes/delete/`, { data: body })
         .then((response) => animeResponse(response, btn))
         .catch((err) => animeErr(err.message));
     }
@@ -97,7 +97,7 @@ function animeErr(err) {
 }
 
 axios
-  .get("http://localhost:5500/animes")
+  .get("http://localhost:3000/api/animes")
   .then((res) => verifyIfItsInDB(res))
   .catch((err) => handleChangeIconError(err));
 

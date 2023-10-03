@@ -1,20 +1,19 @@
 const { initializeApp }= require("firebase/app")
 const { getDatabase, ref, child, get, set } = require('firebase/database')
 const express = require('express')
-const cors = require('cors')
+const animeActions = require('./controllers/animeActions')
 
-const app = express();
-
-app.use(cors())
-
-app.use(express.json())
-
-app.listen(5500, () => {
-  console.log('Rodando de boa na porta 5500')
-})
+const route = express.Router()
 
 const firebaseConfig = {
-  databaseURL: "https://anime-a1d1-default-rtdb.firebaseio.com/",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: "anime-a1d1.firebaseapp.com",
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: "anime-a1d1",
+  storageBucket: "anime-a1d1.appspot.com",
+  messagingSenderId: "915407279508",
+  appId: "1:915407279508:web:2ea877f82d76cb9918ab81",
+  measurementId: "G-VTCKQLRR7Q"
 };
 
 const fireApp = initializeApp(firebaseConfig);
@@ -76,8 +75,8 @@ async function removeAnime(list, id) {
   }
 }
 
-// ----------- GET -----------
-app.get('/animes/', (req, res) => {
+// ----------- API GET -----------
+route.get('/api/animes/', (req, res) => {
   const db = getDatabase(fireApp)
   const dbRef = ref(db);
   get(child(dbRef, `animes/`))
@@ -85,23 +84,35 @@ app.get('/animes/', (req, res) => {
   .catch(err => res.json(err))
 })
 
-app.get('/animes/:list', (req, res) => {
+route.get('/api/animes/:list', (req, res) => {
   getAnimes(req.params.list)
   .then(animes => res.jsonp(animes.val()))
   .catch(err => res.json(err))
 })
 
-// ----------- POST -----------
-app.post('/animes/add/', (req, res) => {
+// ----------- API POST -----------
+route.post('/api/animes/add/', (req, res) => {
   addAnime(req.body.list, req.body.id)
   .then(response => res.json(response))
   .catch(err => res.errored(err))
 })
 
-// ----------- DELETE -----------
-app.delete('/animes/delete/', (req, res) => {
+// ----------- API DELETE -----------
+route.delete('/api/animes/delete/', (req, res) => {
   removeAnime(req.body.list, req.body.id)
   .then(response => res.json(response))
   .catch(err => res.errored(err))
 })
 
+
+// ----------- CLIENT SIDE ROUTES -----------
+
+route.get("/", (req, res) => {
+  res.render("index");
+});
+
+route.get("/animes", (req, res) => {res.render("index");});
+route.get("/anime/:id", animeActions.enterAnime);
+route.get("/animes/:list", animeActions.myList);
+
+module.exports = route;

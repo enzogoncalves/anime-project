@@ -28,7 +28,7 @@ const listTitle = document.querySelector('.list-title')
 listTitle.textContent = title
 
 
-axios(`http://localhost:5500/animes/${list}`, {
+axios(`http://localhost:3000/api/animes/${list}`, {
   method: 'GET',
 }).then(response => getAnime(response.data))
   .catch(err => handleError(err))

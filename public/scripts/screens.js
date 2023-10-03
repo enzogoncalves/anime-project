@@ -416,6 +416,8 @@ function createContainer(data_container_title, containers) {
 }
 
 function firstLetterUpperCase(words) {
+  if(!words) return;
+  
   let entireWord = [];
 
   words
