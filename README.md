@@ -2,7 +2,9 @@
 
 ## Como iniciar o projeto
 
-Para iniciar o servidor web, instale os módulos nodejs e inicie o servidor
+1. Você precisa instalar as dependências desse servidor utilizando o npm (node package manager). Instale o node pelo [site oficial](https://nodejs.org/).
+
+Para iniciar o servidor web, instale os módulos nodejs e inicie o servidor:
 
 ```
 npm install  
@@ -12,6 +14,9 @@ npm start
 Agora é só entrar em [http://localhost:3000/animes](http://localhost:3000/animes)
 
 O servidor web é iniciado na porta 3000, mas você pode alterar [neste arquivo](/src/server.js)
+
+## Visual
+
 
 ## Linguagens e Tecnologias Utilizadas
 <div style="display: inline-block"><br>
