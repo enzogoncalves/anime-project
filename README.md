@@ -16,6 +16,8 @@ Agora é só entrar em [http://localhost:3000/animes](http://localhost:3000/anim
 O servidor web é iniciado na porta 3000, mas você pode alterar [neste arquivo](/src/server.js)
 
 ## Visual
+https://github.com/user-attachments/assets/a8175d86-29ce-4e10-b2de-e95f1dac086d
+
 
 
 ## Linguagens e Tecnologias Utilizadas
